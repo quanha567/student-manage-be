@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "classes",
+  "info": {
+    "singularName": "class",
+    "pluralName": "classes",
+    "displayName": "Classes",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ClassID": {
+      "type": "uid"
+    },
+    "ClassName": {
+      "type": "string",
+      "required": true
+    },
+    "DepartmentID": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::department.department",
+      "mappedBy": "Classes"
+    },
+    "Students": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::student.student",
+      "inversedBy": "ClassID"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exam_results",
+  "info": {
+    "singularName": "exam-result",
+    "pluralName": "exam-results",
+    "displayName": "ExamResults"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ResultID": {
+      "type": "uid"
+    },
+    "StudentID": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::student.student",
+      "inversedBy": "ExamResults"
+    },
+    "ExamID": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exam.exam",
+      "inversedBy": "ExamResults"
+    },
+    "Score": {
+      "type": "decimal"
+    }
+  }
+}

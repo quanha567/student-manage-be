@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subjects",
+  "info": {
+    "singularName": "subject",
+    "pluralName": "subjects",
+    "displayName": "Subjects"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "SubjectID": {
+      "type": "uid"
+    },
+    "SubjectName": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "richtext"
+    },
+    "Credits": {
+      "type": "integer",
+      "required": true
+    },
+    "DepartmentID": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::department.department",
+      "inversedBy": "Subjects"
+    },
+    "Syllabuse": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::syllabus.syllabus",
+      "mappedBy": "SubjectID"
+    }
+  }
+}

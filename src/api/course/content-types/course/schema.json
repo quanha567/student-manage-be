@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "courses",
+  "info": {
+    "singularName": "course",
+    "pluralName": "courses",
+    "displayName": "Courses"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "CourseID": {
+      "type": "uid"
+    },
+    "CourseName": {
+      "type": "string",
+      "required": true
+    },
+    "Credits": {
+      "type": "integer",
+      "required": true
+    },
+    "Enrollments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::enrollment.enrollment",
+      "mappedBy": "CourseID"
+    },
+    "Exams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam.exam",
+      "mappedBy": "CourseID"
+    }
+  }
+}

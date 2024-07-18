@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "students",
+  "info": {
+    "singularName": "student",
+    "pluralName": "students",
+    "displayName": "Students"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "StudentID": {
+      "type": "uid"
+    },
+    "FullName": {
+      "type": "string",
+      "required": true
+    },
+    "DateOfBirth": {
+      "type": "date"
+    },
+    "Gender": {
+      "type": "enumeration",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "OTHER"
+      ]
+    },
+    "Address": {
+      "type": "text"
+    },
+    "PhoneNumber": {
+      "type": "string"
+    },
+    "Email": {
+      "type": "email"
+    },
+    "ClassID": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::class.class",
+      "mappedBy": "Students"
+    },
+    "Enrollments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::enrollment.enrollment",
+      "mappedBy": "StudentID"
+    },
+    "ExamResults": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam-result.exam-result",
+      "mappedBy": "StudentID"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "departments",
+  "info": {
+    "singularName": "department",
+    "pluralName": "departments",
+    "displayName": "Departments",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "DepartmentName": {
+      "type": "string"
+    },
+    "DepartmentID": {
+      "type": "uid",
+      "required": false
+    },
+    "Classes": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::class.class",
+      "inversedBy": "DepartmentID"
+    },
+    "Subjects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::subject.subject",
+      "mappedBy": "DepartmentID"
+    }
+  }
+}

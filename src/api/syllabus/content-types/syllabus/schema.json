@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "syllabuses",
+  "info": {
+    "singularName": "syllabus",
+    "pluralName": "syllabuses",
+    "displayName": "Syllabuses"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "SyllabusID": {
+      "type": "uid"
+    },
+    "SubjectID": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::subject.subject",
+      "inversedBy": "Syllabuse"
+    },
+    "Content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}
