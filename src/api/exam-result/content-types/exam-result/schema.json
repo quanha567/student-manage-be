@@ -4,30 +4,32 @@
   "info": {
     "singularName": "exam-result",
     "pluralName": "exam-results",
-    "displayName": "ExamResults"
+    "displayName": "ExamResults",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "ResultID": {
-      "type": "uid"
-    },
-    "StudentID": {
+    "studentId": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::student.student",
-      "inversedBy": "ExamResults"
+      "inversedBy": "examResults"
     },
-    "ExamID": {
+    "examId": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::exam.exam",
-      "inversedBy": "ExamResults"
+      "inversedBy": "examResults"
     },
-    "Score": {
+    "score": {
       "type": "decimal"
+    },
+    "resultId": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

@@ -4,38 +4,40 @@
   "info": {
     "singularName": "subject",
     "pluralName": "subjects",
-    "displayName": "Subjects"
+    "displayName": "Subjects",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "SubjectID": {
-      "type": "uid"
-    },
-    "SubjectName": {
+    "subjectName": {
       "type": "string",
       "required": true
     },
-    "Description": {
+    "description": {
       "type": "richtext"
     },
-    "Credits": {
+    "credits": {
       "type": "integer",
       "required": true
     },
-    "DepartmentID": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::department.department",
-      "inversedBy": "Subjects"
-    },
-    "Syllabuse": {
+    "syllabuse": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::syllabus.syllabus",
-      "mappedBy": "SubjectID"
+      "inversedBy": "subjectId"
+    },
+    "departmentId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::department.department",
+      "inversedBy": "subjects"
+    },
+    "subjectID": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

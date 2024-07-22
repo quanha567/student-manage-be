@@ -12,24 +12,24 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "DepartmentName": {
+    "departmentName": {
       "type": "string"
     },
-    "DepartmentID": {
-      "type": "uid",
-      "required": false
-    },
-    "Classes": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::class.class",
-      "inversedBy": "DepartmentID"
-    },
-    "Subjects": {
+    "subjects": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::subject.subject",
-      "mappedBy": "DepartmentID"
+      "mappedBy": "departmentId"
+    },
+    "classes": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::class.class",
+      "inversedBy": "departmentId"
+    },
+    "departmentId": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

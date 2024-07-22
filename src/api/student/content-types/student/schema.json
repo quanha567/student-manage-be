@@ -4,24 +4,22 @@
   "info": {
     "singularName": "student",
     "pluralName": "students",
-    "displayName": "Students"
+    "displayName": "Students",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "StudentID": {
-      "type": "uid"
-    },
-    "FullName": {
+    "fullName": {
       "type": "string",
       "required": true
     },
-    "DateOfBirth": {
+    "dateOfBirth": {
       "type": "date"
     },
-    "Gender": {
+    "gender": {
       "type": "enumeration",
       "enum": [
         "MALE",
@@ -29,32 +27,42 @@
         "OTHER"
       ]
     },
-    "Address": {
+    "address": {
       "type": "text"
     },
-    "PhoneNumber": {
+    "phoneNumber": {
       "type": "string"
     },
-    "Email": {
+    "email": {
       "type": "email"
     },
-    "ClassID": {
+    "classId": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::class.class",
-      "mappedBy": "Students"
+      "mappedBy": "students"
     },
-    "Enrollments": {
+    "enrollments": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::enrollment.enrollment",
-      "mappedBy": "StudentID"
+      "mappedBy": "studentId"
     },
-    "ExamResults": {
+    "examResults": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::exam-result.exam-result",
-      "mappedBy": "StudentID"
+      "mappedBy": "studentId"
+    },
+    "studentId": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "userId": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "studentId"
     }
   }
 }

@@ -4,35 +4,37 @@
   "info": {
     "singularName": "course",
     "pluralName": "courses",
-    "displayName": "Courses"
+    "displayName": "Courses",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "CourseID": {
-      "type": "uid"
-    },
-    "CourseName": {
+    "courseName": {
       "type": "string",
       "required": true
     },
-    "Credits": {
+    "credits": {
       "type": "integer",
       "required": true
     },
-    "Enrollments": {
+    "enrollments": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::enrollment.enrollment",
-      "mappedBy": "CourseID"
+      "mappedBy": "courseId"
     },
-    "Exams": {
+    "exams": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::exam.exam",
-      "mappedBy": "CourseID"
+      "mappedBy": "courseId"
+    },
+    "courseId": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

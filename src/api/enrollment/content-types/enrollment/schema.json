@@ -4,31 +4,33 @@
   "info": {
     "singularName": "enrollment",
     "pluralName": "enrollments",
-    "displayName": "Enrollments"
+    "displayName": "Enrollments",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "EnrollmentID": {
-      "type": "uid"
-    },
-    "StudentID": {
+    "studentId": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::student.student",
-      "inversedBy": "Enrollments"
+      "inversedBy": "enrollments"
     },
-    "CourseID": {
+    "grade": {
+      "type": "integer",
+      "required": true
+    },
+    "courseId": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::course.course",
-      "inversedBy": "Enrollments"
+      "inversedBy": "enrollments"
     },
-    "Grade": {
-      "type": "integer",
-      "required": true
+    "enrollmentId": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

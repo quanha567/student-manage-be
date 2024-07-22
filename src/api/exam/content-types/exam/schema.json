@@ -4,35 +4,37 @@
   "info": {
     "singularName": "exam",
     "pluralName": "exams",
-    "displayName": "Exams"
+    "displayName": "Exams",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "ExamID": {
-      "type": "uid"
-    },
-    "ExamName": {
+    "examName": {
       "type": "string",
       "required": true
     },
-    "ExamDate": {
+    "examDate": {
       "type": "datetime",
       "required": true
     },
-    "CourseID": {
+    "courseId": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::course.course",
-      "inversedBy": "Exams"
+      "inversedBy": "exams"
     },
-    "ExamResults": {
+    "examResults": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::exam-result.exam-result",
-      "mappedBy": "ExamID"
+      "mappedBy": "examId"
+    },
+    "examId": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

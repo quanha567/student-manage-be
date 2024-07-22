@@ -4,25 +4,27 @@
   "info": {
     "singularName": "syllabus",
     "pluralName": "syllabuses",
-    "displayName": "Syllabuses"
+    "displayName": "Syllabuses",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "SyllabusID": {
-      "type": "uid"
+    "content": {
+      "type": "richtext",
+      "required": true
     },
-    "SubjectID": {
+    "subjectId": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::subject.subject",
-      "inversedBy": "Syllabuse"
+      "mappedBy": "syllabuse"
     },
-    "Content": {
-      "type": "richtext",
-      "required": true
+    "syllabusId": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

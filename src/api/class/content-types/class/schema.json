@@ -12,24 +12,25 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "ClassID": {
-      "type": "uid"
-    },
-    "ClassName": {
+    "className": {
       "type": "string",
       "required": true
     },
-    "DepartmentID": {
+    "departmentId": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::department.department",
-      "mappedBy": "Classes"
+      "mappedBy": "classes"
     },
-    "Students": {
+    "students": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::student.student",
-      "inversedBy": "ClassID"
+      "inversedBy": "classId"
+    },
+    "classId": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }
