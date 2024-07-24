@@ -65,15 +65,11 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "userId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
-    },
-    "studentId": {
+    "student": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::student.student",
-      "mappedBy": "userId"
+      "inversedBy": "userId"
     }
   }
 }

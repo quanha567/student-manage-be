@@ -9,10 +9,10 @@ export default [
   "strapi::session",
   "strapi::favicon",
   "strapi::public",
-  {
-    name: "strapi::body",
-    config: {
-      parsedMethods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    },
-  },
+  // {
+  //   name: "strapi::body",
+  //   config: {
+  //     parsedMethods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  //   },
+  // },
 ];

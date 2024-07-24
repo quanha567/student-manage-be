@@ -770,9 +770,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    userId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
-    studentId: Attribute.Relation<
+    student: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToOne',
       'api::student.student'
@@ -904,6 +902,7 @@ export interface ApiDepartmentDepartment extends Schema.CollectionType {
     >;
     departmentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
+    avatar: Attribute.Media<'images'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
