@@ -16,21 +16,21 @@
       "type": "string",
       "required": true
     },
-    "departmentId": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::department.department",
-      "mappedBy": "classes"
-    },
     "students": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::student.student",
-      "inversedBy": "classId"
+      "mappedBy": "classId"
     },
     "classId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "department": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::department.department",
+      "inversedBy": "classes"
     }
   }
 }

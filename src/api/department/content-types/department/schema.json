@@ -21,22 +21,23 @@
       "target": "api::subject.subject",
       "mappedBy": "departmentId"
     },
-    "classes": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::class.class",
-      "inversedBy": "departmentId"
-    },
     "departmentId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
     },
     "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "classes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::class.class",
+      "mappedBy": "department"
     }
   }
 }

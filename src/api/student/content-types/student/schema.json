@@ -36,12 +36,6 @@
     "email": {
       "type": "email"
     },
-    "classId": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::class.class",
-      "mappedBy": "students"
-    },
     "enrollments": {
       "type": "relation",
       "relation": "oneToMany",
@@ -63,6 +57,12 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
       "mappedBy": "student"
+    },
+    "classId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::class.class",
+      "inversedBy": "students"
     }
   }
 }

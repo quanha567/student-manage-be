@@ -805,18 +805,18 @@ export interface ApiClassClass extends Schema.CollectionType {
   };
   attributes: {
     className: Attribute.String & Attribute.Required;
-    departmentId: Attribute.Relation<
-      'api::class.class',
-      'oneToMany',
-      'api::department.department'
-    >;
     students: Attribute.Relation<
       'api::class.class',
-      'manyToOne',
+      'oneToMany',
       'api::student.student'
     >;
     classId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
+    department: Attribute.Relation<
+      'api::class.class',
+      'manyToOne',
+      'api::department.department'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -895,14 +895,14 @@ export interface ApiDepartmentDepartment extends Schema.CollectionType {
       'oneToMany',
       'api::subject.subject'
     >;
-    classes: Attribute.Relation<
-      'api::department.department',
-      'manyToOne',
-      'api::class.class'
-    >;
     departmentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     avatar: Attribute.Media<'images'>;
+    classes: Attribute.Relation<
+      'api::department.department',
+      'oneToMany',
+      'api::class.class'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1057,11 +1057,6 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     address: Attribute.Text;
     phoneNumber: Attribute.String;
     email: Attribute.Email;
-    classId: Attribute.Relation<
-      'api::student.student',
-      'oneToMany',
-      'api::class.class'
-    >;
     enrollments: Attribute.Relation<
       'api::student.student',
       'oneToMany',
@@ -1078,6 +1073,11 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       'api::student.student',
       'oneToOne',
       'plugin::users-permissions.user'
+    >;
+    classId: Attribute.Relation<
+      'api::student.student',
+      'manyToOne',
+      'api::class.class'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
