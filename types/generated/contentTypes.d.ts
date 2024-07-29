@@ -1105,7 +1105,7 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     subjectName: Attribute.String & Attribute.Required;
@@ -1125,7 +1125,6 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::subject.subject',
       'oneToOne',
