@@ -17,9 +17,9 @@
     },
     "subjects": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::subject.subject",
-      "mappedBy": "departmentId"
+      "mappedBy": "departments"
     },
     "departmentId": {
       "type": "customField",

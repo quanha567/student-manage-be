@@ -52,17 +52,28 @@
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
     },
-    "userId": {
+    "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "student"
+      "inversedBy": "student"
     },
-    "classId": {
+    "class": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::class.class",
       "inversedBy": "students"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "note": {
+      "type": "richtext"
     }
   }
 }

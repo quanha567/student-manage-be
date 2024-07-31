@@ -12,19 +12,34 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "content": {
+    "description": {
       "type": "richtext",
-      "required": true
+      "required": false
     },
-    "subjectId": {
+    "subject": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::subject.subject",
-      "mappedBy": "syllabuse"
+      "inversedBy": "syllabuses"
     },
     "syllabusId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "syllabusName": {
+      "type": "string",
+      "required": true
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos",
+        "audios",
+        "files"
+      ]
     }
   }
 }

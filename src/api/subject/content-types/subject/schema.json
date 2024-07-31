@@ -23,21 +23,21 @@
       "type": "integer",
       "required": true
     },
-    "syllabuse": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::syllabus.syllabus",
-      "inversedBy": "subjectId"
-    },
-    "departmentId": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::department.department",
-      "inversedBy": "subjects"
-    },
     "subjectID": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "syllabuses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::syllabus.syllabus",
+      "mappedBy": "subject"
+    },
+    "departments": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::department.department",
+      "inversedBy": "subjects"
     }
   }
 }

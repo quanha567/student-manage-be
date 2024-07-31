@@ -805,17 +805,17 @@ export interface ApiClassClass extends Schema.CollectionType {
   };
   attributes: {
     className: Attribute.String & Attribute.Required;
-    students: Attribute.Relation<
-      'api::class.class',
-      'oneToMany',
-      'api::student.student'
-    >;
     classId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     department: Attribute.Relation<
       'api::class.class',
       'manyToOne',
       'api::department.department'
+    >;
+    students: Attribute.Relation<
+      'api::class.class',
+      'oneToMany',
+      'api::student.student'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -892,7 +892,7 @@ export interface ApiDepartmentDepartment extends Schema.CollectionType {
     departmentName: Attribute.String;
     subjects: Attribute.Relation<
       'api::department.department',
-      'oneToMany',
+      'manyToMany',
       'api::subject.subject'
     >;
     departmentId: Attribute.UID &
@@ -1069,16 +1069,18 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     >;
     studentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
-    userId: Attribute.Relation<
+    user: Attribute.Relation<
       'api::student.student',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    classId: Attribute.Relation<
+    class: Attribute.Relation<
       'api::student.student',
       'manyToOne',
       'api::class.class'
     >;
+    avatar: Attribute.Media<'images'>;
+    note: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1111,18 +1113,18 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     subjectName: Attribute.String & Attribute.Required;
     description: Attribute.RichText;
     credits: Attribute.Integer & Attribute.Required;
-    syllabuse: Attribute.Relation<
-      'api::subject.subject',
-      'oneToOne',
-      'api::syllabus.syllabus'
-    >;
-    departmentId: Attribute.Relation<
-      'api::subject.subject',
-      'manyToOne',
-      'api::department.department'
-    >;
     subjectID: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
+    syllabuses: Attribute.Relation<
+      'api::subject.subject',
+      'oneToMany',
+      'api::syllabus.syllabus'
+    >;
+    departments: Attribute.Relation<
+      'api::subject.subject',
+      'manyToMany',
+      'api::department.department'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1152,14 +1154,16 @@ export interface ApiSyllabusSyllabus extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    content: Attribute.RichText & Attribute.Required;
-    subjectId: Attribute.Relation<
+    description: Attribute.RichText;
+    subject: Attribute.Relation<
       'api::syllabus.syllabus',
-      'oneToOne',
+      'manyToOne',
       'api::subject.subject'
     >;
     syllabusId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
+    syllabusName: Attribute.String & Attribute.Required;
+    file: Attribute.Media<'images' | 'videos' | 'audios' | 'files'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

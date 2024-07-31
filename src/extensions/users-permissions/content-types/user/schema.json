@@ -69,7 +69,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::student.student",
-      "inversedBy": "userId"
+      "mappedBy": "user"
     }
   }
 }

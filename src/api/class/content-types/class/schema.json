@@ -16,12 +16,6 @@
       "type": "string",
       "required": true
     },
-    "students": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::student.student",
-      "mappedBy": "classId"
-    },
     "classId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
@@ -31,6 +25,12 @@
       "relation": "manyToOne",
       "target": "api::department.department",
       "inversedBy": "classes"
+    },
+    "students": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::student.student",
+      "mappedBy": "class"
     }
   }
 }
