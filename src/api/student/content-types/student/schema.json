@@ -74,6 +74,9 @@
     },
     "note": {
       "type": "richtext"
+    },
+    "studentCode": {
+      "type": "string"
     }
   }
 }

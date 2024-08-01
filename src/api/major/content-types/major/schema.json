@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "majors",
+  "info": {
+    "singularName": "major",
+    "pluralName": "majors",
+    "displayName": "Majors",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "code": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}

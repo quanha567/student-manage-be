@@ -1039,6 +1039,37 @@ export interface ApiExamResultExamResult extends Schema.CollectionType {
   };
 }
 
+export interface ApiMajorMajor extends Schema.CollectionType {
+  collectionName: 'majors';
+  info: {
+    singularName: 'major';
+    pluralName: 'majors';
+    displayName: 'Majors';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    code: Attribute.UID<'api::major.major', 'name'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::major.major',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::major.major',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStudentStudent extends Schema.CollectionType {
   collectionName: 'students';
   info: {
@@ -1081,6 +1112,7 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     >;
     avatar: Attribute.Media<'images'>;
     note: Attribute.RichText;
+    studentCode: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1205,6 +1237,7 @@ declare module '@strapi/types' {
       'api::enrollment.enrollment': ApiEnrollmentEnrollment;
       'api::exam.exam': ApiExamExam;
       'api::exam-result.exam-result': ApiExamResultExamResult;
+      'api::major.major': ApiMajorMajor;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
       'api::syllabus.syllabus': ApiSyllabusSyllabus;
