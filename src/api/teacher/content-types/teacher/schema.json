@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "teachers",
+  "info": {
+    "singularName": "teacher",
+    "pluralName": "teachers",
+    "displayName": "Teachers",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullName": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "departments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::department.department",
+      "mappedBy": "teacher"
+    },
+    "examResults": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam-result.exam-result",
+      "mappedBy": "teacher"
+    }
+  }
+}

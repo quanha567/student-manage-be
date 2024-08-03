@@ -12,9 +12,9 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "studentId": {
+    "students": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::student.student",
       "inversedBy": "examResults"
     },
@@ -30,6 +30,18 @@
     "resultId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "teacher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::teacher.teacher",
+      "inversedBy": "examResults"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "examResults"
     }
   }
 }

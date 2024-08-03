@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "courseName": {
+    "name": {
       "type": "string",
       "required": true
     },
@@ -32,9 +32,26 @@
       "target": "api::exam.exam",
       "mappedBy": "courseId"
     },
-    "courseId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
+    "examResults": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam-result.exam-result",
+      "mappedBy": "course"
+    },
+    "subject": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subject.subject",
+      "inversedBy": "courses"
+    },
+    "code": {
+      "type": "string"
+    },
+    "theoryCount": {
+      "type": "integer"
+    },
+    "praticeCount": {
+      "type": "integer"
     }
   }
 }

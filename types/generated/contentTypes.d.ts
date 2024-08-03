@@ -846,7 +846,7 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    courseName: Attribute.String & Attribute.Required;
+    name: Attribute.String & Attribute.Required;
     credits: Attribute.Integer & Attribute.Required;
     enrollments: Attribute.Relation<
       'api::course.course',
@@ -858,8 +858,19 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'oneToMany',
       'api::exam.exam'
     >;
-    courseId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
+    examResults: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::exam-result.exam-result'
+    >;
+    subject: Attribute.Relation<
+      'api::course.course',
+      'manyToOne',
+      'api::subject.subject'
+    >;
+    code: Attribute.String;
+    theoryCount: Attribute.Integer;
+    praticeCount: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -890,11 +901,6 @@ export interface ApiDepartmentDepartment extends Schema.CollectionType {
   };
   attributes: {
     departmentName: Attribute.String;
-    subjects: Attribute.Relation<
-      'api::department.department',
-      'manyToMany',
-      'api::subject.subject'
-    >;
     departmentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     avatar: Attribute.Media<'images'>;
@@ -902,6 +908,16 @@ export interface ApiDepartmentDepartment extends Schema.CollectionType {
       'api::department.department',
       'oneToMany',
       'api::class.class'
+    >;
+    majors: Attribute.Relation<
+      'api::department.department',
+      'oneToMany',
+      'api::major.major'
+    >;
+    teacher: Attribute.Relation<
+      'api::department.department',
+      'manyToOne',
+      'api::teacher.teacher'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1009,9 +1025,9 @@ export interface ApiExamResultExamResult extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    studentId: Attribute.Relation<
+    students: Attribute.Relation<
       'api::exam-result.exam-result',
-      'manyToOne',
+      'manyToMany',
       'api::student.student'
     >;
     examId: Attribute.Relation<
@@ -1022,6 +1038,16 @@ export interface ApiExamResultExamResult extends Schema.CollectionType {
     score: Attribute.Decimal;
     resultId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
+    teacher: Attribute.Relation<
+      'api::exam-result.exam-result',
+      'manyToOne',
+      'api::teacher.teacher'
+    >;
+    course: Attribute.Relation<
+      'api::exam-result.exam-result',
+      'manyToOne',
+      'api::course.course'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1053,6 +1079,16 @@ export interface ApiMajorMajor extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     code: Attribute.UID<'api::major.major', 'name'>;
+    students: Attribute.Relation<
+      'api::major.major',
+      'oneToMany',
+      'api::student.student'
+    >;
+    department: Attribute.Relation<
+      'api::major.major',
+      'manyToOne',
+      'api::department.department'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1093,11 +1129,6 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       'oneToMany',
       'api::enrollment.enrollment'
     >;
-    examResults: Attribute.Relation<
-      'api::student.student',
-      'oneToMany',
-      'api::exam-result.exam-result'
-    >;
     studentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     user: Attribute.Relation<
@@ -1113,6 +1144,16 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     avatar: Attribute.Media<'images'>;
     note: Attribute.RichText;
     studentCode: Attribute.String;
+    major: Attribute.Relation<
+      'api::student.student',
+      'manyToOne',
+      'api::major.major'
+    >;
+    examResults: Attribute.Relation<
+      'api::student.student',
+      'manyToMany',
+      'api::exam-result.exam-result'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1142,21 +1183,19 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    subjectName: Attribute.String & Attribute.Required;
+    name: Attribute.String & Attribute.Required;
     description: Attribute.RichText;
-    credits: Attribute.Integer & Attribute.Required;
-    subjectID: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     syllabuses: Attribute.Relation<
       'api::subject.subject',
       'oneToMany',
       'api::syllabus.syllabus'
     >;
-    departments: Attribute.Relation<
+    courses: Attribute.Relation<
       'api::subject.subject',
-      'manyToMany',
-      'api::department.department'
+      'oneToMany',
+      'api::course.course'
     >;
+    code: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1192,10 +1231,8 @@ export interface ApiSyllabusSyllabus extends Schema.CollectionType {
       'manyToOne',
       'api::subject.subject'
     >;
-    syllabusId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
-    syllabusName: Attribute.String & Attribute.Required;
-    file: Attribute.Media<'images' | 'videos' | 'audios' | 'files'>;
+    name: Attribute.String & Attribute.Required;
+    files: Attribute.Media<'images' | 'videos' | 'audios' | 'files', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1206,6 +1243,48 @@ export interface ApiSyllabusSyllabus extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::syllabus.syllabus',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTeacherTeacher extends Schema.CollectionType {
+  collectionName: 'teachers';
+  info: {
+    singularName: 'teacher';
+    pluralName: 'teachers';
+    displayName: 'Teachers';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    fullName: Attribute.String & Attribute.Required;
+    address: Attribute.String;
+    phoneNumber: Attribute.String;
+    departments: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::department.department'
+    >;
+    examResults: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::exam-result.exam-result'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::teacher.teacher',
       'oneToOne',
       'admin::user'
     > &
@@ -1241,6 +1320,7 @@ declare module '@strapi/types' {
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
       'api::syllabus.syllabus': ApiSyllabusSyllabus;
+      'api::teacher.teacher': ApiTeacherTeacher;
     }
   }
 }

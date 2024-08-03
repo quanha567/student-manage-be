@@ -42,12 +42,6 @@
       "target": "api::enrollment.enrollment",
       "mappedBy": "studentId"
     },
-    "examResults": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::exam-result.exam-result",
-      "mappedBy": "studentId"
-    },
     "studentId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
@@ -77,6 +71,18 @@
     },
     "studentCode": {
       "type": "string"
+    },
+    "major": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::major.major",
+      "inversedBy": "students"
+    },
+    "examResults": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::exam-result.exam-result",
+      "mappedBy": "students"
     }
   }
 }
