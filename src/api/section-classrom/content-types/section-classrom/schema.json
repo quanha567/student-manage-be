@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "section_classroms",
+  "info": {
+    "singularName": "section-classrom",
+    "pluralName": "section-classroms",
+    "displayName": "SectionClassroms",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "schedule": {
+      "type": "json"
+    },
+    "classrom": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::classrom.classrom",
+      "inversedBy": "sectionClassrom"
+    },
+    "section": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::section.section",
+      "inversedBy": "sectionClassrom"
+    }
+  }
+}

@@ -33,6 +33,49 @@
       "relation": "oneToMany",
       "target": "api::exam-result.exam-result",
       "mappedBy": "teacher"
+    },
+    "email": {
+      "type": "email"
+    },
+    "dateOfBirth": {
+      "type": "date"
+    },
+    "note": {
+      "type": "richtext"
+    },
+    "classes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::class.class",
+      "mappedBy": "teacher"
+    },
+    "teacherCode": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "teacher"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "OTHER"
+      ]
     }
   }
 }

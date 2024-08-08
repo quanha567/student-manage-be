@@ -22,7 +22,7 @@ export default {
     data.studentCode = newID;
 
     // Create email from studentCode
-    const email = `${newID}@vlu.edu.vn`;
+    const email = `${newID}@stu.vlu.edu.vn`;
 
     // Create a new user associated with this student
     const newUser = await strapi.plugins["users-permissions"].services.user.add(

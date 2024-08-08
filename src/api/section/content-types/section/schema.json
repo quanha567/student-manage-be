@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sections",
+  "info": {
+    "singularName": "section",
+    "pluralName": "sections",
+    "displayName": "Sections",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "sectionClassrom": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::section-classrom.section-classrom",
+      "mappedBy": "section"
+    },
+    "enrollment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::enrollment.enrollment",
+      "mappedBy": "section"
+    }
+  }
+}

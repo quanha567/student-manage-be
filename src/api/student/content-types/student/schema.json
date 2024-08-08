@@ -36,12 +36,6 @@
     "email": {
       "type": "email"
     },
-    "enrollments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::enrollment.enrollment",
-      "mappedBy": "studentId"
-    },
     "studentId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"

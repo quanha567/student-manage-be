@@ -775,6 +775,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::student.student'
     >;
+    teacher: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::teacher.teacher'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -817,6 +822,11 @@ export interface ApiClassClass extends Schema.CollectionType {
       'oneToMany',
       'api::student.student'
     >;
+    teacher: Attribute.Relation<
+      'api::class.class',
+      'manyToOne',
+      'api::teacher.teacher'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -827,6 +837,41 @@ export interface ApiClassClass extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::class.class',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiClassromClassrom extends Schema.CollectionType {
+  collectionName: 'classroms';
+  info: {
+    singularName: 'classrom';
+    pluralName: 'classroms';
+    displayName: 'Classroms';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    building: Attribute.String & Attribute.Required;
+    capacity: Attribute.Integer & Attribute.Required;
+    sectionClassrom: Attribute.Relation<
+      'api::classrom.classrom',
+      'oneToOne',
+      'api::section-classrom.section-classrom'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::classrom.classrom',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::classrom.classrom',
       'oneToOne',
       'admin::user'
     > &
@@ -869,8 +914,13 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'api::subject.subject'
     >;
     code: Attribute.String;
-    theoryCount: Attribute.Integer;
-    praticeCount: Attribute.Integer;
+    startDate: Attribute.Date & Attribute.Required;
+    endDate: Attribute.Date;
+    courseType: Attribute.Enumeration<['REQUIRED', 'OPTIONAL']>;
+    semester: Attribute.String;
+    labHours: Attribute.Integer;
+    lectureHours: Attribute.Integer;
+    description: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -948,11 +998,6 @@ export interface ApiEnrollmentEnrollment extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    studentId: Attribute.Relation<
-      'api::enrollment.enrollment',
-      'manyToOne',
-      'api::student.student'
-    >;
     grade: Attribute.Integer & Attribute.Required;
     courseId: Attribute.Relation<
       'api::enrollment.enrollment',
@@ -961,6 +1006,12 @@ export interface ApiEnrollmentEnrollment extends Schema.CollectionType {
     >;
     enrollmentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
+    section: Attribute.Relation<
+      'api::enrollment.enrollment',
+      'oneToOne',
+      'api::section.section'
+    >;
+    status: Attribute.Enumeration<['REGISTERED', 'COMPLETED', 'DROPPED']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1106,6 +1157,88 @@ export interface ApiMajorMajor extends Schema.CollectionType {
   };
 }
 
+export interface ApiSectionSection extends Schema.CollectionType {
+  collectionName: 'sections';
+  info: {
+    singularName: 'section';
+    pluralName: 'sections';
+    displayName: 'Sections';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    code: Attribute.String;
+    name: Attribute.String;
+    sectionClassrom: Attribute.Relation<
+      'api::section.section',
+      'oneToOne',
+      'api::section-classrom.section-classrom'
+    >;
+    enrollment: Attribute.Relation<
+      'api::section.section',
+      'oneToOne',
+      'api::enrollment.enrollment'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::section.section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::section.section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSectionClassromSectionClassrom
+  extends Schema.CollectionType {
+  collectionName: 'section_classroms';
+  info: {
+    singularName: 'section-classrom';
+    pluralName: 'section-classroms';
+    displayName: 'SectionClassroms';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    schedule: Attribute.JSON;
+    classrom: Attribute.Relation<
+      'api::section-classrom.section-classrom',
+      'oneToOne',
+      'api::classrom.classrom'
+    >;
+    section: Attribute.Relation<
+      'api::section-classrom.section-classrom',
+      'oneToOne',
+      'api::section.section'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::section-classrom.section-classrom',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::section-classrom.section-classrom',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStudentStudent extends Schema.CollectionType {
   collectionName: 'students';
   info: {
@@ -1124,11 +1257,6 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     address: Attribute.Text;
     phoneNumber: Attribute.String;
     email: Attribute.Email;
-    enrollments: Attribute.Relation<
-      'api::student.student',
-      'oneToMany',
-      'api::enrollment.enrollment'
-    >;
     studentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     user: Attribute.Relation<
@@ -1275,6 +1403,22 @@ export interface ApiTeacherTeacher extends Schema.CollectionType {
       'oneToMany',
       'api::exam-result.exam-result'
     >;
+    email: Attribute.Email;
+    dateOfBirth: Attribute.Date;
+    note: Attribute.RichText;
+    classes: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::class.class'
+    >;
+    teacherCode: Attribute.String;
+    user: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    gender: Attribute.Enumeration<['MALE', 'FEMALE', 'OTHER']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1311,12 +1455,15 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::class.class': ApiClassClass;
+      'api::classrom.classrom': ApiClassromClassrom;
       'api::course.course': ApiCourseCourse;
       'api::department.department': ApiDepartmentDepartment;
       'api::enrollment.enrollment': ApiEnrollmentEnrollment;
       'api::exam.exam': ApiExamExam;
       'api::exam-result.exam-result': ApiExamResultExamResult;
       'api::major.major': ApiMajorMajor;
+      'api::section.section': ApiSectionSection;
+      'api::section-classrom.section-classrom': ApiSectionClassromSectionClassrom;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
       'api::syllabus.syllabus': ApiSyllabusSyllabus;

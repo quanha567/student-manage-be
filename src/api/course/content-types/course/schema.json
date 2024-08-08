@@ -47,11 +47,31 @@
     "code": {
       "type": "string"
     },
-    "theoryCount": {
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "courseType": {
+      "type": "enumeration",
+      "enum": [
+        "REQUIRED",
+        "OPTIONAL"
+      ]
+    },
+    "semester": {
+      "type": "string"
+    },
+    "labHours": {
       "type": "integer"
     },
-    "praticeCount": {
+    "lectureHours": {
       "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
     }
   }
 }
