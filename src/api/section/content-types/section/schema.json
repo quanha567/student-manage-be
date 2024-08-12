@@ -15,20 +15,31 @@
     "code": {
       "type": "string"
     },
-    "name": {
-      "type": "string"
-    },
-    "sectionClassrom": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::section-classrom.section-classrom",
-      "mappedBy": "section"
-    },
     "enrollment": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::enrollment.enrollment",
       "mappedBy": "section"
+    },
+    "capacity": {
+      "type": "integer"
+    },
+    "schedule": {
+      "type": "json"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "sections"
+    },
+    "classroom": {
+      "type": "string"
+    },
+    "schedules": {
+      "type": "component",
+      "repeatable": true,
+      "component": "schedule.schedule"
     }
   }
 }

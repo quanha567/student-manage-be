@@ -827,51 +827,21 @@ export interface ApiClassClass extends Schema.CollectionType {
       'manyToOne',
       'api::teacher.teacher'
     >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
+    course: Attribute.Relation<
       'api::class.class',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::class.class',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiClassromClassrom extends Schema.CollectionType {
-  collectionName: 'classroms';
-  info: {
-    singularName: 'classrom';
-    pluralName: 'classroms';
-    displayName: 'Classroms';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    building: Attribute.String & Attribute.Required;
-    capacity: Attribute.Integer & Attribute.Required;
-    sectionClassrom: Attribute.Relation<
-      'api::classrom.classrom',
-      'oneToOne',
-      'api::section-classrom.section-classrom'
+      'manyToOne',
+      'api::course.course'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::classrom.classrom',
+      'api::class.class',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::classrom.classrom',
+      'api::class.class',
       'oneToOne',
       'admin::user'
     > &
@@ -893,11 +863,6 @@ export interface ApiCourseCourse extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     credits: Attribute.Integer & Attribute.Required;
-    enrollments: Attribute.Relation<
-      'api::course.course',
-      'oneToMany',
-      'api::enrollment.enrollment'
-    >;
     exams: Attribute.Relation<
       'api::course.course',
       'oneToMany',
@@ -921,6 +886,16 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     labHours: Attribute.Integer;
     lectureHours: Attribute.Integer;
     description: Attribute.RichText;
+    classes: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::class.class'
+    >;
+    sections: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::section.section'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -999,11 +974,6 @@ export interface ApiEnrollmentEnrollment extends Schema.CollectionType {
   };
   attributes: {
     grade: Attribute.Integer & Attribute.Required;
-    courseId: Attribute.Relation<
-      'api::enrollment.enrollment',
-      'manyToOne',
-      'api::course.course'
-    >;
     enrollmentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     section: Attribute.Relation<
@@ -1170,17 +1140,20 @@ export interface ApiSectionSection extends Schema.CollectionType {
   };
   attributes: {
     code: Attribute.String;
-    name: Attribute.String;
-    sectionClassrom: Attribute.Relation<
-      'api::section.section',
-      'oneToOne',
-      'api::section-classrom.section-classrom'
-    >;
     enrollment: Attribute.Relation<
       'api::section.section',
       'oneToOne',
       'api::enrollment.enrollment'
     >;
+    capacity: Attribute.Integer;
+    schedule: Attribute.JSON;
+    course: Attribute.Relation<
+      'api::section.section',
+      'manyToOne',
+      'api::course.course'
+    >;
+    classroom: Attribute.String;
+    schedules: Attribute.Component<'schedule.schedule', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1198,40 +1171,31 @@ export interface ApiSectionSection extends Schema.CollectionType {
   };
 }
 
-export interface ApiSectionClassromSectionClassrom
-  extends Schema.CollectionType {
-  collectionName: 'section_classroms';
+export interface ApiSectionScheduleSectionSchedule extends Schema.SingleType {
+  collectionName: 'section_schedules';
   info: {
-    singularName: 'section-classrom';
-    pluralName: 'section-classroms';
-    displayName: 'SectionClassroms';
-    description: '';
+    singularName: 'section-schedule';
+    pluralName: 'section-schedules';
+    displayName: 'SectionSchedule';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    schedule: Attribute.JSON;
-    classrom: Attribute.Relation<
-      'api::section-classrom.section-classrom',
-      'oneToOne',
-      'api::classrom.classrom'
-    >;
-    section: Attribute.Relation<
-      'api::section-classrom.section-classrom',
-      'oneToOne',
-      'api::section.section'
-    >;
+    day: Attribute.String;
+    startTime: Attribute.Time;
+    endTime: Attribute.Time;
+    room: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::section-classrom.section-classrom',
+      'api::section-schedule.section-schedule',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::section-classrom.section-classrom',
+      'api::section-schedule.section-schedule',
       'oneToOne',
       'admin::user'
     > &
@@ -1455,7 +1419,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::class.class': ApiClassClass;
-      'api::classrom.classrom': ApiClassromClassrom;
       'api::course.course': ApiCourseCourse;
       'api::department.department': ApiDepartmentDepartment;
       'api::enrollment.enrollment': ApiEnrollmentEnrollment;
@@ -1463,7 +1426,7 @@ declare module '@strapi/types' {
       'api::exam-result.exam-result': ApiExamResultExamResult;
       'api::major.major': ApiMajorMajor;
       'api::section.section': ApiSectionSection;
-      'api::section-classrom.section-classrom': ApiSectionClassromSectionClassrom;
+      'api::section-schedule.section-schedule': ApiSectionScheduleSectionSchedule;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
       'api::syllabus.syllabus': ApiSyllabusSyllabus;

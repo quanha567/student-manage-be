@@ -16,12 +16,6 @@
       "type": "integer",
       "required": true
     },
-    "courseId": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::course.course",
-      "inversedBy": "enrollments"
-    },
     "enrollmentId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"

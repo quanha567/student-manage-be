@@ -20,12 +20,6 @@
       "type": "integer",
       "required": true
     },
-    "enrollments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::enrollment.enrollment",
-      "mappedBy": "courseId"
-    },
     "exams": {
       "type": "relation",
       "relation": "oneToMany",
@@ -72,6 +66,18 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "classes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::class.class",
+      "mappedBy": "course"
+    },
+    "sections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::section.section",
+      "mappedBy": "course"
     }
   }
 }

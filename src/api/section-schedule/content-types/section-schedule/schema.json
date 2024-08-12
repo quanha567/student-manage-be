@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "section_schedules",
+  "info": {
+    "singularName": "section-schedule",
+    "pluralName": "section-schedules",
+    "displayName": "SectionSchedule"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "day": {
+      "type": "string"
+    },
+    "startTime": {
+      "type": "time"
+    },
+    "endTime": {
+      "type": "time"
+    },
+    "room": {
+      "type": "string"
+    }
+  }
+}

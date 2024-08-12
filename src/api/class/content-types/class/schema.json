@@ -37,6 +37,12 @@
       "relation": "manyToOne",
       "target": "api::teacher.teacher",
       "inversedBy": "classes"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "classes"
     }
   }
 }

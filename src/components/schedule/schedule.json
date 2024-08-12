@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_schedule_schedules",
+  "info": {
+    "displayName": "schedule",
+    "icon": "calendar"
+  },
+  "options": {},
+  "attributes": {
+    "day": {
+      "type": "string"
+    }
+  }
+}
