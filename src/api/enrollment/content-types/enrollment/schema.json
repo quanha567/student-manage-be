@@ -12,14 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "grade": {
-      "type": "integer",
-      "required": true
-    },
-    "enrollmentId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
-    },
     "section": {
       "type": "relation",
       "relation": "oneToOne",
@@ -30,9 +22,16 @@
       "type": "enumeration",
       "enum": [
         "REGISTERED",
+        "LEARNING",
         "COMPLETED",
         "DROPPED"
       ]
+    },
+    "student": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::student.student",
+      "inversedBy": "enrollments"
     }
   }
 }

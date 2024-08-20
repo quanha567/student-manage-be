@@ -77,6 +77,12 @@
       "relation": "manyToMany",
       "target": "api::exam-result.exam-result",
       "mappedBy": "students"
+    },
+    "enrollments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::enrollment.enrollment",
+      "mappedBy": "student"
     }
   }
 }

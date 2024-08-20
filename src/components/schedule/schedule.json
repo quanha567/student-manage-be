@@ -2,12 +2,22 @@
   "collectionName": "components_schedule_schedules",
   "info": {
     "displayName": "schedule",
-    "icon": "calendar"
+    "icon": "calendar",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "day": {
       "type": "string"
+    },
+    "room": {
+      "type": "string"
+    },
+    "startTime": {
+      "type": "time"
+    },
+    "endTime": {
+      "type": "time"
     }
   }
 }

@@ -40,6 +40,15 @@
       "type": "component",
       "repeatable": true,
       "component": "schedule.schedule"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "OPENING",
+        "CLOSING",
+        "FULLED"
+      ],
+      "default": "OPENING"
     }
   }
 }

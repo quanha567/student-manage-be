@@ -827,9 +827,9 @@ export interface ApiClassClass extends Schema.CollectionType {
       'manyToOne',
       'api::teacher.teacher'
     >;
-    course: Attribute.Relation<
+    courses: Attribute.Relation<
       'api::class.class',
-      'manyToOne',
+      'manyToMany',
       'api::course.course'
     >;
     createdAt: Attribute.DateTime;
@@ -888,7 +888,7 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     description: Attribute.RichText;
     classes: Attribute.Relation<
       'api::course.course',
-      'oneToMany',
+      'manyToMany',
       'api::class.class'
     >;
     sections: Attribute.Relation<
@@ -973,15 +973,19 @@ export interface ApiEnrollmentEnrollment extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    grade: Attribute.Integer & Attribute.Required;
-    enrollmentId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     section: Attribute.Relation<
       'api::enrollment.enrollment',
       'oneToOne',
       'api::section.section'
     >;
-    status: Attribute.Enumeration<['REGISTERED', 'COMPLETED', 'DROPPED']>;
+    status: Attribute.Enumeration<
+      ['REGISTERED', 'LEARNING', 'COMPLETED', 'DROPPED']
+    >;
+    student: Attribute.Relation<
+      'api::enrollment.enrollment',
+      'manyToOne',
+      'api::student.student'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1154,6 +1158,8 @@ export interface ApiSectionSection extends Schema.CollectionType {
     >;
     classroom: Attribute.String;
     schedules: Attribute.Component<'schedule.schedule', true>;
+    status: Attribute.Enumeration<['OPENING', 'CLOSING', 'FULLED']> &
+      Attribute.DefaultTo<'OPENING'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1245,6 +1251,11 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       'api::student.student',
       'manyToMany',
       'api::exam-result.exam-result'
+    >;
+    enrollments: Attribute.Relation<
+      'api::student.student',
+      'oneToMany',
+      'api::enrollment.enrollment'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

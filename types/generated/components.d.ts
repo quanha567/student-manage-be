@@ -5,9 +5,13 @@ export interface ScheduleSchedule extends Schema.Component {
   info: {
     displayName: 'schedule';
     icon: 'calendar';
+    description: '';
   };
   attributes: {
     day: Attribute.String;
+    room: Attribute.String;
+    startTime: Attribute.Time;
+    endTime: Attribute.Time;
   };
 }
 
