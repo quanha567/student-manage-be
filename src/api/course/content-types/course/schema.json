@@ -55,9 +55,6 @@
         "OPTIONAL"
       ]
     },
-    "semester": {
-      "type": "string"
-    },
     "labHours": {
       "type": "integer"
     },
@@ -78,6 +75,12 @@
       "relation": "oneToMany",
       "target": "api::section.section",
       "mappedBy": "course"
+    },
+    "semester": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::semester.semester",
+      "inversedBy": "course"
     }
   }
 }

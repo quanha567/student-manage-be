@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "semesters",
+  "info": {
+    "singularName": "semester",
+    "pluralName": "semesters",
+    "displayName": "Semesters"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course.course",
+      "inversedBy": "semester"
+    },
+    "classes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::class.class",
+      "mappedBy": "semesters"
+    }
+  }
+}

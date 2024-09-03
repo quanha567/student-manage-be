@@ -24,9 +24,6 @@
     "capacity": {
       "type": "integer"
     },
-    "schedule": {
-      "type": "json"
-    },
     "course": {
       "type": "relation",
       "relation": "manyToOne",
@@ -49,6 +46,12 @@
         "FULLED"
       ],
       "default": "OPENING"
+    },
+    "teacher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::teacher.teacher",
+      "inversedBy": "sections"
     }
   }
 }

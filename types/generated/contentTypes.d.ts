@@ -832,6 +832,11 @@ export interface ApiClassClass extends Schema.CollectionType {
       'manyToMany',
       'api::course.course'
     >;
+    semesters: Attribute.Relation<
+      'api::class.class',
+      'manyToMany',
+      'api::semester.semester'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -882,7 +887,6 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     startDate: Attribute.Date & Attribute.Required;
     endDate: Attribute.Date;
     courseType: Attribute.Enumeration<['REQUIRED', 'OPTIONAL']>;
-    semester: Attribute.String;
     labHours: Attribute.Integer;
     lectureHours: Attribute.Integer;
     description: Attribute.RichText;
@@ -895,6 +899,11 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'api::course.course',
       'oneToMany',
       'api::section.section'
+    >;
+    semester: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'api::semester.semester'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1150,7 +1159,6 @@ export interface ApiSectionSection extends Schema.CollectionType {
       'api::enrollment.enrollment'
     >;
     capacity: Attribute.Integer;
-    schedule: Attribute.JSON;
     course: Attribute.Relation<
       'api::section.section',
       'manyToOne',
@@ -1160,6 +1168,11 @@ export interface ApiSectionSection extends Schema.CollectionType {
     schedules: Attribute.Component<'schedule.schedule', true>;
     status: Attribute.Enumeration<['OPENING', 'CLOSING', 'FULLED']> &
       Attribute.DefaultTo<'OPENING'>;
+    teacher: Attribute.Relation<
+      'api::section.section',
+      'manyToOne',
+      'api::teacher.teacher'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1202,6 +1215,47 @@ export interface ApiSectionScheduleSectionSchedule extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::section-schedule.section-schedule',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSemesterSemester extends Schema.CollectionType {
+  collectionName: 'semesters';
+  info: {
+    singularName: 'semester';
+    pluralName: 'semesters';
+    displayName: 'Semesters';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    startDate: Attribute.Date;
+    endDate: Attribute.Date;
+    course: Attribute.Relation<
+      'api::semester.semester',
+      'oneToOne',
+      'api::course.course'
+    >;
+    classes: Attribute.Relation<
+      'api::semester.semester',
+      'manyToMany',
+      'api::class.class'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::semester.semester',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::semester.semester',
       'oneToOne',
       'admin::user'
     > &
@@ -1394,6 +1448,11 @@ export interface ApiTeacherTeacher extends Schema.CollectionType {
     >;
     avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     gender: Attribute.Enumeration<['MALE', 'FEMALE', 'OTHER']>;
+    sections: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::section.section'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1438,6 +1497,7 @@ declare module '@strapi/types' {
       'api::major.major': ApiMajorMajor;
       'api::section.section': ApiSectionSection;
       'api::section-schedule.section-schedule': ApiSectionScheduleSectionSchedule;
+      'api::semester.semester': ApiSemesterSemester;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
       'api::syllabus.syllabus': ApiSyllabusSyllabus;

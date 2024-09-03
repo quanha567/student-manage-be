@@ -76,6 +76,12 @@
         "FEMALE",
         "OTHER"
       ]
+    },
+    "sections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::section.section",
+      "mappedBy": "teacher"
     }
   }
 }
