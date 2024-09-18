@@ -4,7 +4,8 @@
   "info": {
     "singularName": "semester",
     "pluralName": "semesters",
-    "displayName": "Semesters"
+    "displayName": "Semesters",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -21,17 +22,17 @@
     "endDate": {
       "type": "date"
     },
-    "course": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::course.course",
-      "inversedBy": "semester"
-    },
     "classes": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::class.class",
       "mappedBy": "semesters"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course",
+      "mappedBy": "semester"
     }
   }
 }

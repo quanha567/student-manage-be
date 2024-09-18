@@ -20,18 +20,6 @@
       "type": "integer",
       "required": true
     },
-    "exams": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::exam.exam",
-      "mappedBy": "courseId"
-    },
-    "examResults": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::exam-result.exam-result",
-      "mappedBy": "course"
-    },
     "subject": {
       "type": "relation",
       "relation": "manyToOne",
@@ -78,9 +66,15 @@
     },
     "semester": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::semester.semester",
-      "inversedBy": "course"
+      "inversedBy": "courses"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam.exam",
+      "mappedBy": "course"
     }
   }
 }

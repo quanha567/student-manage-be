@@ -28,12 +28,6 @@
       "target": "api::department.department",
       "mappedBy": "teacher"
     },
-    "examResults": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::exam-result.exam-result",
-      "mappedBy": "teacher"
-    },
     "email": {
       "type": "email"
     },

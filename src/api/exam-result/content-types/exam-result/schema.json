@@ -18,7 +18,7 @@
       "target": "api::student.student",
       "inversedBy": "examResults"
     },
-    "examId": {
+    "exam": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::exam.exam",
@@ -26,22 +26,6 @@
     },
     "score": {
       "type": "decimal"
-    },
-    "resultId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
-    },
-    "teacher": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::teacher.teacher",
-      "inversedBy": "examResults"
-    },
-    "course": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::course.course",
-      "inversedBy": "examResults"
     }
   }
 }
