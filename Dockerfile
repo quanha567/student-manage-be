@@ -6,6 +6,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
 COPY ./package.json  ./
 ENV PATH /opt/node_modules/.bin:$PATH
+RUN yarn add -D pg
 RUN yarn config set network-timeout 600000 -g && yarn install --frozen-lockfile
 RUN yarn cache clean
 WORKDIR /opt/app

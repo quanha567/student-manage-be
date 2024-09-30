@@ -14,15 +14,18 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-09-18T14:30:49.443Z"
+    "x-generation-date": "2024-09-30T13:27:46.326Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
-    "plugins": ["upload", "users-permissions"]
+    "plugins": [
+      "upload",
+      "users-permissions"
+    ]
   },
   "servers": [
     {
-      "url": "http://localhost:1337/api",
+      "url": "http://0.0.0.0:1337/api",
       "description": "Development server"
     }
   ],
@@ -46,7 +49,9 @@
     "schemas": {
       "Error": {
         "type": "object",
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "properties": {
           "data": {
             "nullable": true,
@@ -83,10 +88,14 @@
       },
       "ClassRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["className"],
+            "required": [
+              "className"
+            ],
             "type": "object",
             "properties": {
               "className": {
@@ -211,7 +220,9 @@
       },
       "Class": {
         "type": "object",
-        "required": ["className"],
+        "required": [
+          "className"
+        ],
         "properties": {
           "className": {
             "type": "string"
@@ -3174,10 +3185,16 @@
       },
       "CourseRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["name", "credits", "startDate"],
+            "required": [
+              "name",
+              "credits",
+              "startDate"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -3210,7 +3227,10 @@
               },
               "courseType": {
                 "type": "string",
-                "enum": ["REQUIRED", "OPTIONAL"]
+                "enum": [
+                  "REQUIRED",
+                  "OPTIONAL"
+                ]
               },
               "labHours": {
                 "type": "integer"
@@ -3326,7 +3346,11 @@
       },
       "Course": {
         "type": "object",
-        "required": ["name", "credits", "startDate"],
+        "required": [
+          "name",
+          "credits",
+          "startDate"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -4113,7 +4137,10 @@
                                     },
                                     "courseType": {
                                       "type": "string",
-                                      "enum": ["REQUIRED", "OPTIONAL"]
+                                      "enum": [
+                                        "REQUIRED",
+                                        "OPTIONAL"
+                                      ]
                                     },
                                     "labHours": {
                                       "type": "integer"
@@ -6154,7 +6181,10 @@
           },
           "courseType": {
             "type": "string",
-            "enum": ["REQUIRED", "OPTIONAL"]
+            "enum": [
+              "REQUIRED",
+              "OPTIONAL"
+            ]
           },
           "labHours": {
             "type": "integer"
@@ -6310,7 +6340,9 @@
       },
       "DepartmentRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
@@ -9487,7 +9519,9 @@
       },
       "EnrollmentRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
@@ -9505,7 +9539,12 @@
               },
               "status": {
                 "type": "string",
-                "enum": ["REGISTERED", "LEARNING", "COMPLETED", "DROPPED"]
+                "enum": [
+                  "REGISTERED",
+                  "LEARNING",
+                  "COMPLETED",
+                  "DROPPED"
+                ]
               },
               "student": {
                 "oneOf": [
@@ -12310,7 +12349,11 @@
                       },
                       "status": {
                         "type": "string",
-                        "enum": ["OPENING", "CLOSING", "FULLED"]
+                        "enum": [
+                          "OPENING",
+                          "CLOSING",
+                          "FULLED"
+                        ]
                       },
                       "teacher": {
                         "type": "object",
@@ -12379,7 +12422,12 @@
           },
           "status": {
             "type": "string",
-            "enum": ["REGISTERED", "LEARNING", "COMPLETED", "DROPPED"]
+            "enum": [
+              "REGISTERED",
+              "LEARNING",
+              "COMPLETED",
+              "DROPPED"
+            ]
           },
           "student": {
             "type": "object",
@@ -12466,10 +12514,15 @@
       },
       "ExamRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["examName", "examDate"],
+            "required": [
+              "examName",
+              "examDate"
+            ],
             "type": "object",
             "properties": {
               "examName": {
@@ -12565,7 +12618,10 @@
       },
       "Exam": {
         "type": "object",
-        "required": ["examName", "examDate"],
+        "required": [
+          "examName",
+          "examDate"
+        ],
         "properties": {
           "examName": {
             "type": "string"
@@ -13405,7 +13461,10 @@
                       },
                       "courseType": {
                         "type": "string",
-                        "enum": ["REQUIRED", "OPTIONAL"]
+                        "enum": [
+                          "REQUIRED",
+                          "OPTIONAL"
+                        ]
                       },
                       "labHours": {
                         "type": "integer"
@@ -15478,7 +15537,9 @@
       },
       "ExamResultRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
@@ -15588,7 +15649,11 @@
                         },
                         "gender": {
                           "type": "string",
-                          "enum": ["MALE", "FEMALE", "OTHER"]
+                          "enum": [
+                            "MALE",
+                            "FEMALE",
+                            "OTHER"
+                          ]
                         },
                         "address": {
                           "type": "string"
@@ -18463,7 +18528,9 @@
       },
       "MajorRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
@@ -18581,7 +18648,11 @@
                         },
                         "gender": {
                           "type": "string",
-                          "enum": ["MALE", "FEMALE", "OTHER"]
+                          "enum": [
+                            "MALE",
+                            "FEMALE",
+                            "OTHER"
+                          ]
                         },
                         "address": {
                           "type": "string"
@@ -21452,7 +21523,9 @@
       },
       "SectionRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
@@ -21496,7 +21569,11 @@
               },
               "status": {
                 "type": "string",
-                "enum": ["OPENING", "CLOSING", "FULLED"]
+                "enum": [
+                  "OPENING",
+                  "CLOSING",
+                  "FULLED"
+                ]
               },
               "teacher": {
                 "oneOf": [
@@ -22443,7 +22520,10 @@
                                               },
                                               "courseType": {
                                                 "type": "string",
-                                                "enum": ["REQUIRED", "OPTIONAL"]
+                                                "enum": [
+                                                  "REQUIRED",
+                                                  "OPTIONAL"
+                                                ]
                                               },
                                               "labHours": {
                                                 "type": "integer"
@@ -24227,7 +24307,11 @@
                                   },
                                   "status": {
                                     "type": "string",
-                                    "enum": ["OPENING", "CLOSING", "FULLED"]
+                                    "enum": [
+                                      "OPENING",
+                                      "CLOSING",
+                                      "FULLED"
+                                    ]
                                   },
                                   "teacher": {
                                     "type": "object",
@@ -24399,7 +24483,11 @@
           },
           "status": {
             "type": "string",
-            "enum": ["OPENING", "CLOSING", "FULLED"]
+            "enum": [
+              "OPENING",
+              "CLOSING",
+              "FULLED"
+            ]
           },
           "teacher": {
             "type": "object",
@@ -24510,7 +24598,9 @@
       },
       "SectionScheduleRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
@@ -24920,10 +25010,14 @@
       },
       "SemesterRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["name"],
+            "required": [
+              "name"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -25017,7 +25111,9 @@
       },
       "Semester": {
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -27931,10 +28027,14 @@
       },
       "StudentRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["fullName"],
+            "required": [
+              "fullName"
+            ],
             "type": "object",
             "properties": {
               "fullName": {
@@ -27946,7 +28046,11 @@
               },
               "gender": {
                 "type": "string",
-                "enum": ["MALE", "FEMALE", "OTHER"]
+                "enum": [
+                  "MALE",
+                  "FEMALE",
+                  "OTHER"
+                ]
               },
               "address": {
                 "type": "string"
@@ -28091,7 +28195,9 @@
       },
       "Student": {
         "type": "object",
-        "required": ["fullName"],
+        "required": [
+          "fullName"
+        ],
         "properties": {
           "fullName": {
             "type": "string"
@@ -28102,7 +28208,11 @@
           },
           "gender": {
             "type": "string",
-            "enum": ["MALE", "FEMALE", "OTHER"]
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ]
           },
           "address": {
             "type": "string"
@@ -28596,7 +28706,11 @@
                                   },
                                   "gender": {
                                     "type": "string",
-                                    "enum": ["MALE", "FEMALE", "OTHER"]
+                                    "enum": [
+                                      "MALE",
+                                      "FEMALE",
+                                      "OTHER"
+                                    ]
                                   },
                                   "address": {
                                     "type": "string"
@@ -31210,10 +31324,14 @@
       },
       "SubjectRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["name"],
+            "required": [
+              "name"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -31305,7 +31423,9 @@
       },
       "Subject": {
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -34217,10 +34337,14 @@
       },
       "SyllabusRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["name"],
+            "required": [
+              "name"
+            ],
             "type": "object",
             "properties": {
               "description": {
@@ -34306,7 +34430,9 @@
       },
       "Syllabus": {
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
           "description": {
             "type": "string"
@@ -35090,7 +35216,10 @@
                                     },
                                     "courseType": {
                                       "type": "string",
-                                      "enum": ["REQUIRED", "OPTIONAL"]
+                                      "enum": [
+                                        "REQUIRED",
+                                        "OPTIONAL"
+                                      ]
                                     },
                                     "labHours": {
                                       "type": "integer"
@@ -37331,10 +37460,14 @@
       },
       "TeacherRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["fullName"],
+            "required": [
+              "fullName"
+            ],
             "type": "object",
             "properties": {
               "fullName": {
@@ -37412,7 +37545,11 @@
               },
               "gender": {
                 "type": "string",
-                "enum": ["MALE", "FEMALE", "OTHER"]
+                "enum": [
+                  "MALE",
+                  "FEMALE",
+                  "OTHER"
+                ]
               },
               "sections": {
                 "type": "array",
@@ -37480,7 +37617,9 @@
       },
       "Teacher": {
         "type": "object",
-        "required": ["fullName"],
+        "required": [
+          "fullName"
+        ],
         "properties": {
           "fullName": {
             "type": "string"
@@ -40496,7 +40635,11 @@
           },
           "gender": {
             "type": "string",
-            "enum": ["MALE", "FEMALE", "OTHER"]
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ]
           },
           "sections": {
             "type": "object",
@@ -40856,7 +40999,9 @@
             }
           }
         },
-        "tags": ["Class"],
+        "tags": [
+          "Class"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -41026,7 +41171,9 @@
             }
           }
         },
-        "tags": ["Class"],
+        "tags": [
+          "Class"
+        ],
         "parameters": [],
         "operationId": "post/classes",
         "requestBody": {
@@ -41105,7 +41252,9 @@
             }
           }
         },
-        "tags": ["Class"],
+        "tags": [
+          "Class"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -41183,7 +41332,9 @@
             }
           }
         },
-        "tags": ["Class"],
+        "tags": [
+          "Class"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -41272,7 +41423,9 @@
             }
           }
         },
-        "tags": ["Class"],
+        "tags": [
+          "Class"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -41352,7 +41505,9 @@
             }
           }
         },
-        "tags": ["Course"],
+        "tags": [
+          "Course"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -41522,7 +41677,9 @@
             }
           }
         },
-        "tags": ["Course"],
+        "tags": [
+          "Course"
+        ],
         "parameters": [],
         "operationId": "post/courses",
         "requestBody": {
@@ -41601,7 +41758,9 @@
             }
           }
         },
-        "tags": ["Course"],
+        "tags": [
+          "Course"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -41679,7 +41838,9 @@
             }
           }
         },
-        "tags": ["Course"],
+        "tags": [
+          "Course"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -41768,7 +41929,9 @@
             }
           }
         },
-        "tags": ["Course"],
+        "tags": [
+          "Course"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -41848,7 +42011,9 @@
             }
           }
         },
-        "tags": ["Department"],
+        "tags": [
+          "Department"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -42018,7 +42183,9 @@
             }
           }
         },
-        "tags": ["Department"],
+        "tags": [
+          "Department"
+        ],
         "parameters": [],
         "operationId": "post/departments",
         "requestBody": {
@@ -42097,7 +42264,9 @@
             }
           }
         },
-        "tags": ["Department"],
+        "tags": [
+          "Department"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -42175,7 +42344,9 @@
             }
           }
         },
-        "tags": ["Department"],
+        "tags": [
+          "Department"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -42264,7 +42435,9 @@
             }
           }
         },
-        "tags": ["Department"],
+        "tags": [
+          "Department"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -42344,7 +42517,9 @@
             }
           }
         },
-        "tags": ["Enrollment"],
+        "tags": [
+          "Enrollment"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -42514,7 +42689,9 @@
             }
           }
         },
-        "tags": ["Enrollment"],
+        "tags": [
+          "Enrollment"
+        ],
         "parameters": [],
         "operationId": "post/enrollments",
         "requestBody": {
@@ -42593,7 +42770,9 @@
             }
           }
         },
-        "tags": ["Enrollment"],
+        "tags": [
+          "Enrollment"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -42671,7 +42850,9 @@
             }
           }
         },
-        "tags": ["Enrollment"],
+        "tags": [
+          "Enrollment"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -42760,7 +42941,9 @@
             }
           }
         },
-        "tags": ["Enrollment"],
+        "tags": [
+          "Enrollment"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -42840,7 +43023,9 @@
             }
           }
         },
-        "tags": ["Exam"],
+        "tags": [
+          "Exam"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -43010,7 +43195,9 @@
             }
           }
         },
-        "tags": ["Exam"],
+        "tags": [
+          "Exam"
+        ],
         "parameters": [],
         "operationId": "post/exams",
         "requestBody": {
@@ -43089,7 +43276,9 @@
             }
           }
         },
-        "tags": ["Exam"],
+        "tags": [
+          "Exam"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -43167,7 +43356,9 @@
             }
           }
         },
-        "tags": ["Exam"],
+        "tags": [
+          "Exam"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -43256,7 +43447,9 @@
             }
           }
         },
-        "tags": ["Exam"],
+        "tags": [
+          "Exam"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -43336,7 +43529,9 @@
             }
           }
         },
-        "tags": ["Exam-result"],
+        "tags": [
+          "Exam-result"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -43506,7 +43701,9 @@
             }
           }
         },
-        "tags": ["Exam-result"],
+        "tags": [
+          "Exam-result"
+        ],
         "parameters": [],
         "operationId": "post/exam-results",
         "requestBody": {
@@ -43585,7 +43782,9 @@
             }
           }
         },
-        "tags": ["Exam-result"],
+        "tags": [
+          "Exam-result"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -43663,7 +43862,9 @@
             }
           }
         },
-        "tags": ["Exam-result"],
+        "tags": [
+          "Exam-result"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -43752,7 +43953,9 @@
             }
           }
         },
-        "tags": ["Exam-result"],
+        "tags": [
+          "Exam-result"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -43832,7 +44035,9 @@
             }
           }
         },
-        "tags": ["Major"],
+        "tags": [
+          "Major"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -44002,7 +44207,9 @@
             }
           }
         },
-        "tags": ["Major"],
+        "tags": [
+          "Major"
+        ],
         "parameters": [],
         "operationId": "post/majors",
         "requestBody": {
@@ -44081,7 +44288,9 @@
             }
           }
         },
-        "tags": ["Major"],
+        "tags": [
+          "Major"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -44159,7 +44368,9 @@
             }
           }
         },
-        "tags": ["Major"],
+        "tags": [
+          "Major"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -44248,7 +44459,9 @@
             }
           }
         },
-        "tags": ["Major"],
+        "tags": [
+          "Major"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -44328,7 +44541,9 @@
             }
           }
         },
-        "tags": ["Section"],
+        "tags": [
+          "Section"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -44498,7 +44713,9 @@
             }
           }
         },
-        "tags": ["Section"],
+        "tags": [
+          "Section"
+        ],
         "parameters": [],
         "operationId": "post/sections",
         "requestBody": {
@@ -44577,7 +44794,9 @@
             }
           }
         },
-        "tags": ["Section"],
+        "tags": [
+          "Section"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -44655,7 +44874,9 @@
             }
           }
         },
-        "tags": ["Section"],
+        "tags": [
+          "Section"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -44744,7 +44965,9 @@
             }
           }
         },
-        "tags": ["Section"],
+        "tags": [
+          "Section"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -44824,7 +45047,9 @@
             }
           }
         },
-        "tags": ["Section-schedule"],
+        "tags": [
+          "Section-schedule"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -44994,7 +45219,9 @@
             }
           }
         },
-        "tags": ["Section-schedule"],
+        "tags": [
+          "Section-schedule"
+        ],
         "parameters": [],
         "operationId": "put/section-schedule",
         "requestBody": {
@@ -45072,7 +45299,9 @@
             }
           }
         },
-        "tags": ["Section-schedule"],
+        "tags": [
+          "Section-schedule"
+        ],
         "parameters": [],
         "operationId": "delete/section-schedule"
       }
@@ -45141,7 +45370,9 @@
             }
           }
         },
-        "tags": ["Semester"],
+        "tags": [
+          "Semester"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -45311,7 +45542,9 @@
             }
           }
         },
-        "tags": ["Semester"],
+        "tags": [
+          "Semester"
+        ],
         "parameters": [],
         "operationId": "post/semesters",
         "requestBody": {
@@ -45390,7 +45623,9 @@
             }
           }
         },
-        "tags": ["Semester"],
+        "tags": [
+          "Semester"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -45468,7 +45703,9 @@
             }
           }
         },
-        "tags": ["Semester"],
+        "tags": [
+          "Semester"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -45557,7 +45794,9 @@
             }
           }
         },
-        "tags": ["Semester"],
+        "tags": [
+          "Semester"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -45637,7 +45876,9 @@
             }
           }
         },
-        "tags": ["Student"],
+        "tags": [
+          "Student"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -45807,7 +46048,9 @@
             }
           }
         },
-        "tags": ["Student"],
+        "tags": [
+          "Student"
+        ],
         "parameters": [],
         "operationId": "post/students",
         "requestBody": {
@@ -45886,7 +46129,9 @@
             }
           }
         },
-        "tags": ["Student"],
+        "tags": [
+          "Student"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -45964,7 +46209,9 @@
             }
           }
         },
-        "tags": ["Student"],
+        "tags": [
+          "Student"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -46053,7 +46300,9 @@
             }
           }
         },
-        "tags": ["Student"],
+        "tags": [
+          "Student"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -46133,7 +46382,9 @@
             }
           }
         },
-        "tags": ["Subject"],
+        "tags": [
+          "Subject"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -46303,7 +46554,9 @@
             }
           }
         },
-        "tags": ["Subject"],
+        "tags": [
+          "Subject"
+        ],
         "parameters": [],
         "operationId": "post/subjects",
         "requestBody": {
@@ -46382,7 +46635,9 @@
             }
           }
         },
-        "tags": ["Subject"],
+        "tags": [
+          "Subject"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -46460,7 +46715,9 @@
             }
           }
         },
-        "tags": ["Subject"],
+        "tags": [
+          "Subject"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -46549,7 +46806,9 @@
             }
           }
         },
-        "tags": ["Subject"],
+        "tags": [
+          "Subject"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -46629,7 +46888,9 @@
             }
           }
         },
-        "tags": ["Syllabus"],
+        "tags": [
+          "Syllabus"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -46799,7 +47060,9 @@
             }
           }
         },
-        "tags": ["Syllabus"],
+        "tags": [
+          "Syllabus"
+        ],
         "parameters": [],
         "operationId": "post/syllabuses",
         "requestBody": {
@@ -46878,7 +47141,9 @@
             }
           }
         },
-        "tags": ["Syllabus"],
+        "tags": [
+          "Syllabus"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -46956,7 +47221,9 @@
             }
           }
         },
-        "tags": ["Syllabus"],
+        "tags": [
+          "Syllabus"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -47045,7 +47312,9 @@
             }
           }
         },
-        "tags": ["Syllabus"],
+        "tags": [
+          "Syllabus"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -47125,7 +47394,9 @@
             }
           }
         },
-        "tags": ["Teacher"],
+        "tags": [
+          "Teacher"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -47295,7 +47566,9 @@
             }
           }
         },
-        "tags": ["Teacher"],
+        "tags": [
+          "Teacher"
+        ],
         "parameters": [],
         "operationId": "post/teachers",
         "requestBody": {
@@ -47374,7 +47647,9 @@
             }
           }
         },
-        "tags": ["Teacher"],
+        "tags": [
+          "Teacher"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -47452,7 +47727,9 @@
             }
           }
         },
-        "tags": ["Teacher"],
+        "tags": [
+          "Teacher"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -47541,7 +47818,9 @@
             }
           }
         },
-        "tags": ["Teacher"],
+        "tags": [
+          "Teacher"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -47576,14 +47855,18 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "requestBody": {
           "description": "Upload files",
           "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["files"],
+                "required": [
+                  "files"
+                ],
                 "type": "object",
                 "properties": {
                   "path": {
@@ -47646,7 +47929,9 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "requestBody": {
           "description": "Upload files",
           "required": true,
@@ -47682,7 +47967,9 @@
     },
     "/upload/files": {
       "get": {
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "responses": {
           "200": {
             "description": "Get a list of files",
@@ -47714,7 +48001,9 @@
             }
           }
         ],
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "responses": {
           "200": {
             "description": "Get a specific file",
@@ -47741,7 +48030,9 @@
             }
           }
         ],
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "responses": {
           "200": {
             "description": "Delete a file",
@@ -47770,7 +48061,9 @@
             }
           }
         ],
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Login with a provider",
         "description": "Redirects to provider login before being redirect to /auth/{provider}/callback",
         "responses": {
@@ -47792,7 +48085,9 @@
     },
     "/auth/local": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Local login",
         "description": "Returns a jwt token and user info",
         "requestBody": {
@@ -47843,7 +48138,9 @@
     },
     "/auth/local/register": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Register a user",
         "description": "Returns a jwt token and user info",
         "requestBody": {
@@ -47898,7 +48195,9 @@
     },
     "/auth/{provider}/callback": {
       "get": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Default Callback from provider auth",
         "parameters": [
           {
@@ -47937,7 +48236,9 @@
     },
     "/auth/forgot-password": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Send rest password email",
         "requestBody": {
           "required": true,
@@ -47967,7 +48268,9 @@
                   "properties": {
                     "ok": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -47989,7 +48292,9 @@
     },
     "/auth/reset-password": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Rest user password",
         "requestBody": {
           "required": true,
@@ -48043,7 +48348,9 @@
     },
     "/auth/change-password": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Update user's own password",
         "requestBody": {
           "required": true,
@@ -48097,7 +48404,9 @@
     },
     "/auth/email-confirmation": {
       "get": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Confirm user email",
         "parameters": [
           {
@@ -48128,7 +48437,9 @@
     },
     "/auth/send-email-confirmation": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Send confirmation email",
         "requestBody": {
           "required": true,
@@ -48158,7 +48469,9 @@
                     },
                     "sent": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -48180,7 +48493,9 @@
     },
     "/users-permissions/permissions": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get default generated permissions",
         "responses": {
           "200": {
@@ -48249,7 +48564,9 @@
     },
     "/users-permissions/roles": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "List roles",
         "responses": {
           "200": {
@@ -48308,7 +48625,9 @@
         }
       },
       "post": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Create a role",
         "requestBody": {
           "$ref": "#/components/requestBodies/Users-Permissions-RoleRequest"
@@ -48323,7 +48642,9 @@
                   "properties": {
                     "ok": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -48345,7 +48666,9 @@
     },
     "/users-permissions/roles/{id}": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get a role",
         "parameters": [
           {
@@ -48410,7 +48733,9 @@
     },
     "/users-permissions/roles/{role}": {
       "put": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Update a role",
         "parameters": [
           {
@@ -48436,7 +48761,9 @@
                   "properties": {
                     "ok": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -48456,7 +48783,9 @@
         }
       },
       "delete": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Delete a role",
         "parameters": [
           {
@@ -48479,7 +48808,9 @@
                   "properties": {
                     "ok": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -48501,7 +48832,9 @@
     },
     "/users": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get list of users",
         "responses": {
           "200": {
@@ -48542,7 +48875,9 @@
         }
       },
       "post": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Create a user",
         "requestBody": {
           "required": true,
@@ -48550,7 +48885,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["username", "email", "password"],
+                "required": [
+                  "username",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "type": "string"
@@ -48627,7 +48966,9 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get a user",
         "parameters": [
           {
@@ -48674,7 +49015,9 @@
         }
       },
       "put": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Update a user",
         "parameters": [
           {
@@ -48693,7 +49036,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["username", "email", "password"],
+                "required": [
+                  "username",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "type": "string"
@@ -48768,7 +49115,9 @@
         }
       },
       "delete": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Delete a user",
         "parameters": [
           {
@@ -48821,7 +49170,9 @@
     },
     "/users/me": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get authenticated user info",
         "responses": {
           "200": {
@@ -48859,7 +49210,9 @@
     },
     "/users/count": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get user count",
         "responses": {
           "200": {

@@ -1,7 +1,23 @@
 version: "3"
 services:
+  postgres:
+      container_name: postgres_container
+      image: postgres
+      environment:
+        POSTGRES_USER: admin
+        POSTGRES_PASSWORD: slsZ1XmB
+        PGDATA: /data/postgres
+      volumes:
+        - postgres:/data/postgres
+      ports:
+        - "5432:5432"
+      networks:
+        - student-manage-network
+      restart: unless-stopped
+        
   student-manage-be:
-    image: student-manage-be
+    platform: linux/amd64
+    image: hellosummer1705/student-manage-be/v1.0.0
     container_name: student-manage-be
     restart: unless-stopped
     build: .
@@ -23,11 +39,11 @@ services:
     ports:
       - "1337:1337"
     networks:
-      - student-manage-website-network
-      - postgres-docker
+      - student-manage-network
 
 networks:
-  student-manage-website-network:
+  student-manage-network:
     external: true
-  postgres-docker:
-    external: true
+
+volumes:
+    postgres:
