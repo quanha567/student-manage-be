@@ -2,7 +2,7 @@ version: "3"
 services:
   postgres:
       container_name: postgres_container
-      image: postgres
+      image: hellosummer1705/postgres:prod
       environment:
         POSTGRES_USER: admin
         POSTGRES_PASSWORD: slsZ1XmB
@@ -14,10 +14,11 @@ services:
       networks:
         - student-manage-network
       restart: unless-stopped
-        
+
+
   student-manage-be:
     platform: linux/amd64
-    image: hellosummer1705/student-manage-be/v1.0.0
+    image: hellosummer1705/student-manage-be:v1.0.0
     container_name: student-manage-be
     restart: unless-stopped
     build: .
