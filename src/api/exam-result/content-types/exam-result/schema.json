@@ -12,13 +12,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "studentId": {
+    "students": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::student.student",
       "inversedBy": "examResults"
     },
-    "examId": {
+    "exam": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::exam.exam",
@@ -26,10 +26,6 @@
     },
     "score": {
       "type": "decimal"
-    },
-    "resultId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

@@ -15,12 +15,6 @@
     "departmentName": {
       "type": "string"
     },
-    "subjects": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::subject.subject",
-      "mappedBy": "departments"
-    },
     "departmentId": {
       "type": "customField",
       "customField": "plugin::strapi-advanced-uuid.uuid"
@@ -38,6 +32,18 @@
       "relation": "oneToMany",
       "target": "api::class.class",
       "mappedBy": "department"
+    },
+    "majors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::major.major",
+      "mappedBy": "department"
+    },
+    "teacher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::teacher.teacher",
+      "inversedBy": "departments"
     }
   }
 }

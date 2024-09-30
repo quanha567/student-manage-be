@@ -775,6 +775,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::student.student'
     >;
+    teacher: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::teacher.teacher'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -817,6 +822,21 @@ export interface ApiClassClass extends Schema.CollectionType {
       'oneToMany',
       'api::student.student'
     >;
+    teacher: Attribute.Relation<
+      'api::class.class',
+      'manyToOne',
+      'api::teacher.teacher'
+    >;
+    courses: Attribute.Relation<
+      'api::class.class',
+      'manyToMany',
+      'api::course.course'
+    >;
+    semesters: Attribute.Relation<
+      'api::class.class',
+      'manyToMany',
+      'api::semester.semester'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -846,20 +866,40 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    courseName: Attribute.String & Attribute.Required;
+    name: Attribute.String & Attribute.Required;
     credits: Attribute.Integer & Attribute.Required;
-    enrollments: Attribute.Relation<
+    subject: Attribute.Relation<
+      'api::course.course',
+      'manyToOne',
+      'api::subject.subject'
+    >;
+    code: Attribute.String;
+    startDate: Attribute.Date & Attribute.Required;
+    endDate: Attribute.Date;
+    courseType: Attribute.Enumeration<['REQUIRED', 'OPTIONAL']>;
+    labHours: Attribute.Integer;
+    lectureHours: Attribute.Integer;
+    description: Attribute.RichText;
+    classes: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::class.class'
+    >;
+    sections: Attribute.Relation<
       'api::course.course',
       'oneToMany',
-      'api::enrollment.enrollment'
+      'api::section.section'
+    >;
+    semester: Attribute.Relation<
+      'api::course.course',
+      'manyToOne',
+      'api::semester.semester'
     >;
     exams: Attribute.Relation<
       'api::course.course',
       'oneToMany',
       'api::exam.exam'
     >;
-    courseId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -890,11 +930,6 @@ export interface ApiDepartmentDepartment extends Schema.CollectionType {
   };
   attributes: {
     departmentName: Attribute.String;
-    subjects: Attribute.Relation<
-      'api::department.department',
-      'manyToMany',
-      'api::subject.subject'
-    >;
     departmentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     avatar: Attribute.Media<'images'>;
@@ -902,6 +937,16 @@ export interface ApiDepartmentDepartment extends Schema.CollectionType {
       'api::department.department',
       'oneToMany',
       'api::class.class'
+    >;
+    majors: Attribute.Relation<
+      'api::department.department',
+      'oneToMany',
+      'api::major.major'
+    >;
+    teacher: Attribute.Relation<
+      'api::department.department',
+      'manyToOne',
+      'api::teacher.teacher'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -932,19 +977,19 @@ export interface ApiEnrollmentEnrollment extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    studentId: Attribute.Relation<
+    section: Attribute.Relation<
+      'api::enrollment.enrollment',
+      'oneToOne',
+      'api::section.section'
+    >;
+    status: Attribute.Enumeration<
+      ['REGISTERED', 'LEARNING', 'COMPLETED', 'DROPPED']
+    >;
+    student: Attribute.Relation<
       'api::enrollment.enrollment',
       'manyToOne',
       'api::student.student'
     >;
-    grade: Attribute.Integer & Attribute.Required;
-    courseId: Attribute.Relation<
-      'api::enrollment.enrollment',
-      'manyToOne',
-      'api::course.course'
-    >;
-    enrollmentId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -976,18 +1021,19 @@ export interface ApiExamExam extends Schema.CollectionType {
   attributes: {
     examName: Attribute.String & Attribute.Required;
     examDate: Attribute.DateTime & Attribute.Required;
-    courseId: Attribute.Relation<
+    course: Attribute.Relation<
       'api::exam.exam',
       'manyToOne',
       'api::course.course'
+    >;
+    type: Attribute.Enumeration<
+      ['FIFTEEN_MINUTE', 'FORTY_FIVE_MINUTE', 'MID_TERM', 'FINALS']
     >;
     examResults: Attribute.Relation<
       'api::exam.exam',
       'oneToMany',
       'api::exam-result.exam-result'
     >;
-    examId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::exam.exam', 'oneToOne', 'admin::user'> &
@@ -1009,19 +1055,17 @@ export interface ApiExamResultExamResult extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    studentId: Attribute.Relation<
+    students: Attribute.Relation<
       'api::exam-result.exam-result',
-      'manyToOne',
+      'manyToMany',
       'api::student.student'
     >;
-    examId: Attribute.Relation<
+    exam: Attribute.Relation<
       'api::exam-result.exam-result',
       'manyToOne',
       'api::exam.exam'
     >;
     score: Attribute.Decimal;
-    resultId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1032,6 +1076,171 @@ export interface ApiExamResultExamResult extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::exam-result.exam-result',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMajorMajor extends Schema.CollectionType {
+  collectionName: 'majors';
+  info: {
+    singularName: 'major';
+    pluralName: 'majors';
+    displayName: 'Majors';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    code: Attribute.UID<'api::major.major', 'name'>;
+    students: Attribute.Relation<
+      'api::major.major',
+      'oneToMany',
+      'api::student.student'
+    >;
+    department: Attribute.Relation<
+      'api::major.major',
+      'manyToOne',
+      'api::department.department'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::major.major',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::major.major',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSectionSection extends Schema.CollectionType {
+  collectionName: 'sections';
+  info: {
+    singularName: 'section';
+    pluralName: 'sections';
+    displayName: 'Sections';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    code: Attribute.String;
+    enrollment: Attribute.Relation<
+      'api::section.section',
+      'oneToOne',
+      'api::enrollment.enrollment'
+    >;
+    capacity: Attribute.Integer;
+    course: Attribute.Relation<
+      'api::section.section',
+      'manyToOne',
+      'api::course.course'
+    >;
+    classroom: Attribute.String;
+    schedules: Attribute.Component<'schedule.schedule', true>;
+    status: Attribute.Enumeration<['OPENING', 'CLOSING', 'FULLED']> &
+      Attribute.DefaultTo<'OPENING'>;
+    teacher: Attribute.Relation<
+      'api::section.section',
+      'manyToOne',
+      'api::teacher.teacher'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::section.section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::section.section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSectionScheduleSectionSchedule extends Schema.SingleType {
+  collectionName: 'section_schedules';
+  info: {
+    singularName: 'section-schedule';
+    pluralName: 'section-schedules';
+    displayName: 'SectionSchedule';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    day: Attribute.String;
+    startTime: Attribute.Time;
+    endTime: Attribute.Time;
+    room: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::section-schedule.section-schedule',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::section-schedule.section-schedule',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSemesterSemester extends Schema.CollectionType {
+  collectionName: 'semesters';
+  info: {
+    singularName: 'semester';
+    pluralName: 'semesters';
+    displayName: 'Semesters';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    startDate: Attribute.Date;
+    endDate: Attribute.Date;
+    classes: Attribute.Relation<
+      'api::semester.semester',
+      'manyToMany',
+      'api::class.class'
+    >;
+    courses: Attribute.Relation<
+      'api::semester.semester',
+      'oneToMany',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::semester.semester',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::semester.semester',
       'oneToOne',
       'admin::user'
     > &
@@ -1057,16 +1266,6 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     address: Attribute.Text;
     phoneNumber: Attribute.String;
     email: Attribute.Email;
-    enrollments: Attribute.Relation<
-      'api::student.student',
-      'oneToMany',
-      'api::enrollment.enrollment'
-    >;
-    examResults: Attribute.Relation<
-      'api::student.student',
-      'oneToMany',
-      'api::exam-result.exam-result'
-    >;
     studentId: Attribute.UID &
       Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     user: Attribute.Relation<
@@ -1081,6 +1280,22 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     >;
     avatar: Attribute.Media<'images'>;
     note: Attribute.RichText;
+    studentCode: Attribute.String;
+    major: Attribute.Relation<
+      'api::student.student',
+      'manyToOne',
+      'api::major.major'
+    >;
+    examResults: Attribute.Relation<
+      'api::student.student',
+      'manyToMany',
+      'api::exam-result.exam-result'
+    >;
+    enrollments: Attribute.Relation<
+      'api::student.student',
+      'oneToMany',
+      'api::enrollment.enrollment'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1110,21 +1325,19 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    subjectName: Attribute.String & Attribute.Required;
+    name: Attribute.String & Attribute.Required;
     description: Attribute.RichText;
-    credits: Attribute.Integer & Attribute.Required;
-    subjectID: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
     syllabuses: Attribute.Relation<
       'api::subject.subject',
       'oneToMany',
       'api::syllabus.syllabus'
     >;
-    departments: Attribute.Relation<
+    courses: Attribute.Relation<
       'api::subject.subject',
-      'manyToMany',
-      'api::department.department'
+      'oneToMany',
+      'api::course.course'
     >;
+    code: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1160,10 +1373,8 @@ export interface ApiSyllabusSyllabus extends Schema.CollectionType {
       'manyToOne',
       'api::subject.subject'
     >;
-    syllabusId: Attribute.UID &
-      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
-    syllabusName: Attribute.String & Attribute.Required;
-    file: Attribute.Media<'images' | 'videos' | 'audios' | 'files'>;
+    name: Attribute.String & Attribute.Required;
+    files: Attribute.Media<'images' | 'videos' | 'audios' | 'files', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1174,6 +1385,64 @@ export interface ApiSyllabusSyllabus extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::syllabus.syllabus',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTeacherTeacher extends Schema.CollectionType {
+  collectionName: 'teachers';
+  info: {
+    singularName: 'teacher';
+    pluralName: 'teachers';
+    displayName: 'Teachers';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    fullName: Attribute.String & Attribute.Required;
+    address: Attribute.String;
+    phoneNumber: Attribute.String;
+    departments: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::department.department'
+    >;
+    email: Attribute.Email;
+    dateOfBirth: Attribute.Date;
+    note: Attribute.RichText;
+    classes: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::class.class'
+    >;
+    teacherCode: Attribute.String;
+    user: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    gender: Attribute.Enumeration<['MALE', 'FEMALE', 'OTHER']>;
+    sections: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToMany',
+      'api::section.section'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::teacher.teacher',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::teacher.teacher',
       'oneToOne',
       'admin::user'
     > &
@@ -1205,9 +1474,14 @@ declare module '@strapi/types' {
       'api::enrollment.enrollment': ApiEnrollmentEnrollment;
       'api::exam.exam': ApiExamExam;
       'api::exam-result.exam-result': ApiExamResultExamResult;
+      'api::major.major': ApiMajorMajor;
+      'api::section.section': ApiSectionSection;
+      'api::section-schedule.section-schedule': ApiSectionScheduleSectionSchedule;
+      'api::semester.semester': ApiSemesterSemester;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
       'api::syllabus.syllabus': ApiSyllabusSyllabus;
+      'api::teacher.teacher': ApiTeacherTeacher;
     }
   }
 }

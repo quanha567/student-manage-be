@@ -20,21 +20,26 @@
       "type": "datetime",
       "required": true
     },
-    "courseId": {
+    "course": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::course.course",
       "inversedBy": "exams"
     },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "FIFTEEN_MINUTE",
+        "FORTY_FIVE_MINUTE",
+        "MID_TERM",
+        "FINALS"
+      ]
+    },
     "examResults": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::exam-result.exam-result",
-      "mappedBy": "examId"
-    },
-    "examId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
+      "mappedBy": "exam"
     }
   }
 }

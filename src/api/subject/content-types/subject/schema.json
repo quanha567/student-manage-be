@@ -12,20 +12,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "subjectName": {
+    "name": {
       "type": "string",
       "required": true
     },
     "description": {
       "type": "richtext"
-    },
-    "credits": {
-      "type": "integer",
-      "required": true
-    },
-    "subjectID": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
     },
     "syllabuses": {
       "type": "relation",
@@ -33,11 +25,14 @@
       "target": "api::syllabus.syllabus",
       "mappedBy": "subject"
     },
-    "departments": {
+    "courses": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::department.department",
-      "inversedBy": "subjects"
+      "relation": "oneToMany",
+      "target": "api::course.course",
+      "mappedBy": "subject"
+    },
+    "code": {
+      "type": "string"
     }
   }
 }

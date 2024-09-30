@@ -31,6 +31,24 @@
       "relation": "oneToMany",
       "target": "api::student.student",
       "mappedBy": "class"
+    },
+    "teacher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::teacher.teacher",
+      "inversedBy": "classes"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "inversedBy": "classes"
+    },
+    "semesters": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::semester.semester",
+      "inversedBy": "classes"
     }
   }
 }

@@ -12,25 +12,26 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "studentId": {
+    "section": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::section.section",
+      "inversedBy": "enrollment"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "REGISTERED",
+        "LEARNING",
+        "COMPLETED",
+        "DROPPED"
+      ]
+    },
+    "student": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::student.student",
       "inversedBy": "enrollments"
-    },
-    "grade": {
-      "type": "integer",
-      "required": true
-    },
-    "courseId": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::course.course",
-      "inversedBy": "enrollments"
-    },
-    "enrollmentId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

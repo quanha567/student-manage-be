@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sections",
+  "info": {
+    "singularName": "section",
+    "pluralName": "sections",
+    "displayName": "Sections",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "enrollment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::enrollment.enrollment",
+      "mappedBy": "section"
+    },
+    "capacity": {
+      "type": "integer"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "sections"
+    },
+    "classroom": {
+      "type": "string"
+    },
+    "schedules": {
+      "type": "component",
+      "repeatable": true,
+      "component": "schedule.schedule"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "OPENING",
+        "CLOSING",
+        "FULLED"
+      ],
+      "default": "OPENING"
+    },
+    "teacher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::teacher.teacher",
+      "inversedBy": "sections"
+    }
+  }
+}

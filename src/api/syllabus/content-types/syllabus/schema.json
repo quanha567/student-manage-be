@@ -22,17 +22,13 @@
       "target": "api::subject.subject",
       "inversedBy": "syllabuses"
     },
-    "syllabusId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
-    },
-    "syllabusName": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "file": {
+    "files": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "allowedTypes": [
         "images",

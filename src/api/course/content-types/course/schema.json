@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "courseName": {
+    "name": {
       "type": "string",
       "required": true
     },
@@ -20,21 +20,61 @@
       "type": "integer",
       "required": true
     },
-    "enrollments": {
+    "subject": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subject.subject",
+      "inversedBy": "courses"
+    },
+    "code": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "courseType": {
+      "type": "enumeration",
+      "enum": [
+        "REQUIRED",
+        "OPTIONAL"
+      ]
+    },
+    "labHours": {
+      "type": "integer"
+    },
+    "lectureHours": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "classes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::class.class",
+      "mappedBy": "courses"
+    },
+    "sections": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::enrollment.enrollment",
-      "mappedBy": "courseId"
+      "target": "api::section.section",
+      "mappedBy": "course"
+    },
+    "semester": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::semester.semester",
+      "inversedBy": "courses"
     },
     "exams": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::exam.exam",
-      "mappedBy": "courseId"
-    },
-    "courseId": {
-      "type": "customField",
-      "customField": "plugin::strapi-advanced-uuid.uuid"
+      "mappedBy": "course"
     }
   }
 }
