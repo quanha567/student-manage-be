@@ -1,0 +1,33 @@
+version: "3"
+services:
+  student-manage-be:
+    image: student-manage-be
+    container_name: student-manage-be
+    restart: unless-stopped
+    build: .
+    environment:
+      NODE_ENV: production
+      DATABASE_CLIENT: postgres
+      DATABASE_NAME: student-manage
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: admin
+      DATABASE_PASSWORD: slsZ1XmB
+    volumes:
+      - ./config:/opt/app/config
+      - ./src:/opt/app/src
+      - ./package.json:/opt/package.json
+      - ./yarn.lock:/opt/yarn.lock
+      - ./.env:/opt/app/.env
+      - ./public/uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
+    networks:
+      - student-manage-website-network
+      - postgres-docker
+
+networks:
+  student-manage-website-network:
+    external: true
+  postgres-docker:
+    external: true
