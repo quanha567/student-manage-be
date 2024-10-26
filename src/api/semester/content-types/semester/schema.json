@@ -33,6 +33,12 @@
       "relation": "oneToMany",
       "target": "api::course.course",
       "mappedBy": "semester"
+    },
+    "academicYears": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::academic-year.academic-year",
+      "mappedBy": "semesters"
     }
   }
 }

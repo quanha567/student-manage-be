@@ -797,6 +797,46 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAcademicYearAcademicYear extends Schema.CollectionType {
+  collectionName: 'academic_years';
+  info: {
+    singularName: 'academic-year';
+    pluralName: 'academic-years';
+    displayName: 'AcademicYears';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    semesters: Attribute.Relation<
+      'api::academic-year.academic-year',
+      'manyToMany',
+      'api::semester.semester'
+    >;
+    students: Attribute.Relation<
+      'api::academic-year.academic-year',
+      'oneToMany',
+      'api::student.student'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::academic-year.academic-year',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::academic-year.academic-year',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiClassClass extends Schema.CollectionType {
   collectionName: 'classes';
   info: {
@@ -1231,6 +1271,11 @@ export interface ApiSemesterSemester extends Schema.CollectionType {
       'oneToMany',
       'api::course.course'
     >;
+    academicYears: Attribute.Relation<
+      'api::semester.semester',
+      'manyToMany',
+      'api::academic-year.academic-year'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1295,6 +1340,11 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       'api::student.student',
       'oneToMany',
       'api::enrollment.enrollment'
+    >;
+    academicYear: Attribute.Relation<
+      'api::student.student',
+      'manyToOne',
+      'api::academic-year.academic-year'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1468,6 +1518,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::academic-year.academic-year': ApiAcademicYearAcademicYear;
       'api::class.class': ApiClassClass;
       'api::course.course': ApiCourseCourse;
       'api::department.department': ApiDepartmentDepartment;

@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "academic_years",
+  "info": {
+    "singularName": "academic-year",
+    "pluralName": "academic-years",
+    "displayName": "AcademicYears",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "semesters": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::semester.semester",
+      "inversedBy": "academicYears"
+    },
+    "students": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::student.student",
+      "mappedBy": "academicYear"
+    }
+  }
+}

@@ -49,4 +49,34 @@ export default {
       console.error('Role "Sinh viên" not found');
     }
   },
+  async beforeDelete(event) {
+    const { id } = event.params.where;
+
+    if (!id) {
+      console.error("No ID provided to beforeDelete");
+      return;
+    }
+
+    try {
+      // Find the student by ID
+      const student = await strapi.entityService.findOne(
+        "api::teacher.teacher",
+        id,
+        {
+          populate: ["user"], // Populate the user relation
+        }
+      );
+
+      // Check if the student has an associated user
+      if (student.user) {
+        // Delete the associated user
+        await strapi.entityService.delete(
+          "plugin::users-permissions.user",
+          student.user.id
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting user associated with student:", error);
+    }
+  },
 };
