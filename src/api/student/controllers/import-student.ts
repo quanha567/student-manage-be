@@ -1,8 +1,6 @@
+import * as fs from "fs";
 import { Context } from "koa";
 import * as xlsx from "xlsx";
-import * as path from "path";
-import * as fs from "fs";
-import moment from "moment";
 
 interface StudentData {
   fullName: string;
@@ -85,30 +83,47 @@ module.exports = {
   },
   async downloadExample(ctx: Context) {
     try {
-      // Define the file path
-      const filePath = path.resolve(
-        __dirname,
-        "../../../../public/example.xlsx"
-      );
-      console.log("downloadExample  filePath:", filePath);
+      // Example data
+      const students = [
+        {
+          fullName: "Nguyễn Văn A",
+          dateOfBirth: "16/11/2000",
+          gender: "MALE",
+          address: "123 Main St",
+          phoneNumber: "1234567890",
+          className: "CNTT05",
+        },
+        {
+          fullName: "Nguyễn Văn B",
+          dateOfBirth: "2/2/2000",
+          gender: "FEMALE",
+          address: "456 Elm St",
+          phoneNumber: "987654321",
+          className: "CNTT05",
+        },
+      ];
 
-      // Check if the file exists
-      if (!fs.existsSync(filePath)) {
-        ctx.throw(404, "Example file not found");
-      }
+      // Convert JSON data to worksheet
+      const worksheet = xlsx.utils.json_to_sheet(students);
 
-      // Set headers for file download
+      // Create a new workbook and append the worksheet
+      const workbook = xlsx.utils.book_new();
+      xlsx.utils.book_append_sheet(workbook, worksheet, "Students");
+
+      // Generate buffer from workbook
+      const buffer = xlsx.write(workbook, { bookType: "xlsx", type: "buffer" });
+
+      // Set response headers for file download
+      ctx.set("Content-Disposition", 'attachment; filename="students.xlsx"');
       ctx.set(
         "Content-Type",
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       );
-      ctx.set("Content-Disposition", 'attachment; filename="example.xlsx"');
 
-      // Send the file as response
-      ctx.body = fs.createReadStream(filePath);
+      // Send the buffer as the response
+      ctx.body = buffer;
     } catch (error) {
-      console.error(error);
-      ctx.throw(500, "Failed to download example file");
+      ctx.throw(500, "An error occurred while generating the Excel file.");
     }
   },
 };
