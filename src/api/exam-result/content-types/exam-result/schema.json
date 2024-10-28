@@ -12,9 +12,9 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "students": {
+    "student": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "api::student.student",
       "inversedBy": "examResults"
     },

@@ -31,8 +31,6 @@ export default factories.createCoreController(
           populate: ["student"],
         });
 
-      console.log(user);
-
       if (!user) {
         return ctx.badRequest("Invalid email or password");
       }

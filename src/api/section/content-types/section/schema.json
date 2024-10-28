@@ -15,9 +15,9 @@
     "code": {
       "type": "string"
     },
-    "enrollment": {
+    "enrollments": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::enrollment.enrollment",
       "mappedBy": "section"
     },

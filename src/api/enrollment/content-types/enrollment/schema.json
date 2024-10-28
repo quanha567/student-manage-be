@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "section": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::section.section",
-      "inversedBy": "enrollment"
-    },
     "status": {
       "type": "enumeration",
       "enum": [
@@ -31,6 +25,12 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::student.student",
+      "inversedBy": "enrollments"
+    },
+    "section": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::section.section",
       "inversedBy": "enrollments"
     }
   }

@@ -9,5 +9,14 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: "GET",
+      path: "/students/my-score/:id",
+      handler: "import-student.getMyScore",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

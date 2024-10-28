@@ -126,4 +126,54 @@ module.exports = {
       ctx.throw(500, "An error occurred while generating the Excel file.");
     }
   },
+  async getMyScore(ctx: Context) {
+    try {
+      const { id } = ctx.request.params;
+
+      if (!id) return ctx.badRequest();
+
+      const examResults = await strapi
+        .query("api::exam-result.exam-result")
+        .findMany({
+          where: {
+            student: {
+              id,
+            },
+          },
+          populate: ["deep"],
+        });
+
+      const transformedData = [];
+
+      examResults.forEach((result) => {
+        const courseName = result.exam.course.name;
+        const examName = result.exam.examName;
+        const score = result.score;
+
+        // Tìm xem subjectName đã tồn tại trong transformedData chưa
+        let subject = transformedData.find(
+          (item) => item.subjectName === courseName
+        );
+
+        // Nếu chưa tồn tại, tạo mới
+        if (!subject) {
+          subject = {
+            subjectName: courseName,
+            scores: [],
+          };
+          transformedData.push(subject);
+        }
+
+        // Thêm điểm vào scores
+        subject.scores.push({
+          name: examName,
+          score: score,
+        });
+      });
+
+      return transformedData;
+    } catch (error) {
+      ctx.throw(500, "An error occurred while generating the Excel file.");
+    }
+  },
 };

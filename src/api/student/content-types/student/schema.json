@@ -72,12 +72,6 @@
       "target": "api::major.major",
       "inversedBy": "students"
     },
-    "examResults": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::exam-result.exam-result",
-      "mappedBy": "students"
-    },
     "enrollments": {
       "type": "relation",
       "relation": "oneToMany",
@@ -89,6 +83,12 @@
       "relation": "manyToOne",
       "target": "api::academic-year.academic-year",
       "inversedBy": "students"
+    },
+    "examResults": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam-result.exam-result",
+      "mappedBy": "student"
     }
   }
 }
