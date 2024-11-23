@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_relative_relatives",
+  "info": {
+    "displayName": "Relative",
+    "icon": "manyToOne"
+  },
+  "options": {},
+  "attributes": {
+    "fullName": {
+      "type": "string"
+    },
+    "job": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    }
+  }
+}

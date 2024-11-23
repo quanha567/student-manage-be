@@ -1346,6 +1346,24 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       'oneToMany',
       'api::exam-result.exam-result'
     >;
+    placeOfBirth: Attribute.String;
+    status: Attribute.Enumeration<['LEARNING', 'FINISHED', 'ENDED', 'PAUSED']> &
+      Attribute.DefaultTo<'LEARNING'>;
+    personalEmail: Attribute.Email;
+    cmndNumber: Attribute.String;
+    cmndCreatedDate: Attribute.String;
+    cmndPlace: Attribute.String;
+    religion: Attribute.String;
+    nation: Attribute.String;
+    origin: Attribute.String;
+    dateJoinYouthUnion: Attribute.Date;
+    dateJoinCommunistParty: Attribute.Date;
+    father: Attribute.Component<'relative.relative'>;
+    mother: Attribute.Component<'relative.relative'>;
+    nanny: Attribute.Component<'relative.relative'>;
+    ward: Attribute.String;
+    district: Attribute.String;
+    province: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

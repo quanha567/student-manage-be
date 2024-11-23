@@ -89,6 +89,70 @@
       "relation": "oneToMany",
       "target": "api::exam-result.exam-result",
       "mappedBy": "student"
+    },
+    "placeOfBirth": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "LEARNING",
+        "FINISHED",
+        "ENDED",
+        "PAUSED"
+      ],
+      "default": "LEARNING"
+    },
+    "personalEmail": {
+      "type": "email"
+    },
+    "cmndNumber": {
+      "type": "string"
+    },
+    "cmndCreatedDate": {
+      "type": "string"
+    },
+    "cmndPlace": {
+      "type": "string"
+    },
+    "religion": {
+      "type": "string"
+    },
+    "nation": {
+      "type": "string"
+    },
+    "origin": {
+      "type": "string"
+    },
+    "dateJoinYouthUnion": {
+      "type": "date"
+    },
+    "dateJoinCommunistParty": {
+      "type": "date"
+    },
+    "father": {
+      "type": "component",
+      "repeatable": false,
+      "component": "relative.relative"
+    },
+    "mother": {
+      "type": "component",
+      "repeatable": false,
+      "component": "relative.relative"
+    },
+    "nanny": {
+      "type": "component",
+      "repeatable": false,
+      "component": "relative.relative"
+    },
+    "ward": {
+      "type": "string"
+    },
+    "district": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
     }
   }
 }
