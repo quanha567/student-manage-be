@@ -4,7 +4,8 @@
   "info": {
     "singularName": "section-schedule",
     "pluralName": "section-schedules",
-    "displayName": "SectionSchedule"
+    "displayName": "SectionSchedule",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -21,7 +22,9 @@
       "type": "time"
     },
     "room": {
-      "type": "string"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::room.room"
     }
   }
 }

@@ -18,14 +18,26 @@
       "target": "api::student.student",
       "inversedBy": "examResults"
     },
-    "exam": {
+    "section": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::exam.exam",
-      "inversedBy": "examResults"
+      "target": "api::section.section",
+      "inversedBy": "exam_results"
     },
-    "score": {
-      "type": "decimal"
+    "scoreQT": {
+      "type": "integer"
+    },
+    "scoreGK": {
+      "type": "integer"
+    },
+    "scoreTH": {
+      "type": "integer"
+    },
+    "scoreCK": {
+      "type": "integer"
+    },
+    "note": {
+      "type": "richtext"
     }
   }
 }

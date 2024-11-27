@@ -52,6 +52,12 @@
       "relation": "manyToOne",
       "target": "api::teacher.teacher",
       "inversedBy": "sections"
+    },
+    "exam_results": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam-result.exam-result",
+      "mappedBy": "section"
     }
   }
 }

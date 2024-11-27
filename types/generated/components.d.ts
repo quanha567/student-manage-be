@@ -9,9 +9,9 @@ export interface ScheduleSchedule extends Schema.Component {
   };
   attributes: {
     day: Attribute.String;
-    room: Attribute.String;
     startTime: Attribute.Time;
     endTime: Attribute.Time;
+    room: Attribute.Relation<'schedule.schedule', 'oneToOne', 'api::room.room'>;
   };
 }
 

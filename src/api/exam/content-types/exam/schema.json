@@ -34,12 +34,6 @@
         "MID_TERM",
         "FINALS"
       ]
-    },
-    "examResults": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::exam-result.exam-result",
-      "mappedBy": "exam"
     }
   }
 }

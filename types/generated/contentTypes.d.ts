@@ -1069,11 +1069,6 @@ export interface ApiExamExam extends Schema.CollectionType {
     type: Attribute.Enumeration<
       ['FIFTEEN_MINUTE', 'FORTY_FIVE_MINUTE', 'MID_TERM', 'FINALS']
     >;
-    examResults: Attribute.Relation<
-      'api::exam.exam',
-      'oneToMany',
-      'api::exam-result.exam-result'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::exam.exam', 'oneToOne', 'admin::user'> &
@@ -1100,12 +1095,16 @@ export interface ApiExamResultExamResult extends Schema.CollectionType {
       'manyToOne',
       'api::student.student'
     >;
-    exam: Attribute.Relation<
+    section: Attribute.Relation<
       'api::exam-result.exam-result',
       'manyToOne',
-      'api::exam.exam'
+      'api::section.section'
     >;
-    score: Attribute.Decimal;
+    scoreQT: Attribute.Integer;
+    scoreGK: Attribute.Integer;
+    scoreTH: Attribute.Integer;
+    scoreCK: Attribute.Integer;
+    note: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1164,6 +1163,32 @@ export interface ApiMajorMajor extends Schema.CollectionType {
   };
 }
 
+export interface ApiRoomRoom extends Schema.CollectionType {
+  collectionName: 'rooms';
+  info: {
+    singularName: 'room';
+    pluralName: 'rooms';
+    displayName: 'Rooms';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    capacity: Attribute.Integer;
+    location: Attribute.String;
+    type: Attribute.Enumeration<
+      ['CLASSROOM', 'LABORATORY', 'AUDITORIUM', 'OFFICE']
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::room.room', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::room.room', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSectionSection extends Schema.CollectionType {
   collectionName: 'sections';
   info: {
@@ -1197,6 +1222,11 @@ export interface ApiSectionSection extends Schema.CollectionType {
       'manyToOne',
       'api::teacher.teacher'
     >;
+    exam_results: Attribute.Relation<
+      'api::section.section',
+      'oneToMany',
+      'api::exam-result.exam-result'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1220,6 +1250,7 @@ export interface ApiSectionScheduleSectionSchedule extends Schema.SingleType {
     singularName: 'section-schedule';
     pluralName: 'section-schedules';
     displayName: 'SectionSchedule';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -1228,7 +1259,11 @@ export interface ApiSectionScheduleSectionSchedule extends Schema.SingleType {
     day: Attribute.String;
     startTime: Attribute.Time;
     endTime: Attribute.Time;
-    room: Attribute.String;
+    room: Attribute.Relation<
+      'api::section-schedule.section-schedule',
+      'oneToOne',
+      'api::room.room'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1544,6 +1579,7 @@ declare module '@strapi/types' {
       'api::exam.exam': ApiExamExam;
       'api::exam-result.exam-result': ApiExamResultExamResult;
       'api::major.major': ApiMajorMajor;
+      'api::room.room': ApiRoomRoom;
       'api::section.section': ApiSectionSection;
       'api::section-schedule.section-schedule': ApiSectionScheduleSectionSchedule;
       'api::semester.semester': ApiSemesterSemester;
