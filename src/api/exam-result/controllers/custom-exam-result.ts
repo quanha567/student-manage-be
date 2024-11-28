@@ -386,6 +386,64 @@ module.exports = {
       return ctx.internalServerError("Error retrieving schedule", error);
     }
   },
+  // TODO: get schedule of teacher in semester
+  async getScheduleOfTeacher(ctx) {
+    const { teacherId, semesterId } = ctx.params;
+
+    if (!teacherId || !semesterId) {
+      return ctx.badRequest("Missing teacherId or semesterId");
+    }
+
+    try {
+      // Fetch enrollments for the given student and semester
+      const enrollments = await strapi.db
+        .query("api::enrollment.enrollment")
+        .findMany({
+          where: {
+            section: {
+              teacher: teacherId,
+              course: {
+                semester: semesterId,
+              },
+            },
+          },
+          populate: {
+            section: {
+              populate: {
+                course: true,
+                teacher: true,
+                schedules: {
+                  populate: {
+                    room: true, // Populate room directly here
+                  },
+                },
+              },
+            },
+          },
+        });
+
+      // Construct the schedule
+      const schedule = enrollments.flatMap((enrollment) => {
+        const section = enrollment.section;
+        return section.schedules.map((schedule) => ({
+          courseName: section.course.name || null,
+          courseCode: section.course.code || null,
+          teacherName: section.teacher ? section.teacher.fullName : "N/A",
+          day: schedule.day || null,
+          startTime: schedule.startTime || null,
+          endTime: schedule.endTime || null,
+          room: schedule.room ? schedule.room.name : "N/A",
+          courseStartTime: section.course.startDate || null,
+          courseEndTime: section.course.endDate || null,
+        }));
+      });
+
+      return ctx.send(schedule);
+    } catch (error) {
+      console.error("Error retrieving schedule:", error);
+      return ctx.internalServerError("Error retrieving schedule", error);
+    }
+  },
   async getUpcomingExams(ctx) {
     const { studentId } = ctx.params;
 

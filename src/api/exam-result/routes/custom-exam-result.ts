@@ -35,6 +35,14 @@ module.exports = {
     },
     {
       method: "GET",
+      path: "/teachers/:teacherId/schedule/:semesterId",
+      handler: "custom-exam-result.getScheduleOfTeacher",
+      config: {
+        auth: false, // Tùy chọn bật xác thực
+      },
+    },
+    {
+      method: "GET",
       path: "/exams/upcoming/:studentId",
       handler: "custom-exam-result.getUpcomingExams",
       config: {
