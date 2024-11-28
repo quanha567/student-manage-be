@@ -25,5 +25,21 @@ module.exports = {
         auth: false, // Set to true if authentication is required
       },
     },
+    {
+      method: "GET",
+      path: "/students/:studentId/schedule/:semesterId",
+      handler: "custom-exam-result.getSchedule",
+      config: {
+        auth: false, // Tùy chọn bật xác thực
+      },
+    },
+    {
+      method: "GET",
+      path: "/exams/upcoming/:studentId",
+      handler: "custom-exam-result.getUpcomingExams",
+      config: {
+        auth: false, // Thay đổi nếu cần bảo mật
+      },
+    },
   ],
 };

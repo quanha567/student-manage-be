@@ -329,4 +329,106 @@ module.exports = {
       return ctx.internalServerError("An error occurred");
     }
   },
+  async getSchedule(ctx) {
+    const { studentId, semesterId } = ctx.params;
+
+    if (!studentId || !semesterId) {
+      return ctx.badRequest("Missing studentId or semesterId");
+    }
+
+    try {
+      // Fetch enrollments for the given student and semester
+      const enrollments = await strapi.db
+        .query("api::enrollment.enrollment")
+        .findMany({
+          where: {
+            student: studentId,
+            section: {
+              course: {
+                semester: semesterId,
+              },
+            },
+          },
+          populate: {
+            section: {
+              populate: {
+                course: true,
+                teacher: true,
+                schedules: {
+                  populate: {
+                    room: true, // Populate room directly here
+                  },
+                },
+              },
+            },
+          },
+        });
+
+      // Construct the schedule
+      const schedule = enrollments.flatMap((enrollment) => {
+        const section = enrollment.section;
+        return section.schedules.map((schedule) => ({
+          courseName: section.course.name || null,
+          courseCode: section.course.code || null,
+          teacherName: section.teacher ? section.teacher.fullName : "N/A",
+          day: schedule.day || null,
+          startTime: schedule.startTime || null,
+          endTime: schedule.endTime || null,
+          room: schedule.room ? schedule.room.name : "N/A",
+          courseStartTime: section.course.startDate || null,
+          courseEndTime: section.course.endDate || null,
+        }));
+      });
+
+      return ctx.send(schedule);
+    } catch (error) {
+      console.error("Error retrieving schedule:", error);
+      return ctx.internalServerError("Error retrieving schedule", error);
+    }
+  },
+  async getUpcomingExams(ctx) {
+    const { studentId } = ctx.params;
+
+    if (!studentId) {
+      return ctx.badRequest("Student ID is required");
+    }
+
+    try {
+      // Tìm các section mà sinh viên đã đăng ký
+      const enrollments = await strapi.entityService.findMany(
+        "api::enrollment.enrollment",
+        {
+          filters: {
+            student: studentId,
+          },
+          populate: { section: true }, // Populate để lấy thông tin section
+        }
+      );
+
+      if (!enrollments || enrollments.length === 0) {
+        return ctx.notFound("No enrollments found for this student");
+      }
+
+      // Lấy danh sách ID các sections
+      const sectionIds = enrollments.map((enrollment) => enrollment.section.id);
+
+      // Tìm các kỳ thi sắp tới thuộc các sections đó
+      const now = new Date();
+      const exams = await strapi.entityService.findMany("api::exam.exam", {
+        filters: {
+          course: {
+            sections: { id: { $in: sectionIds } }, // Lọc theo sections
+          },
+          examDate: { $gt: now.toISOString() }, // Chỉ lấy kỳ thi trong tương lai
+        },
+        populate: { course: true }, // Populate để lấy thông tin khóa học
+        sort: { examDate: "asc" }, // Sắp xếp theo thời gian tăng dần
+      });
+
+      return ctx.send({ exams });
+    } catch (error) {
+      strapi.log.error("Error fetching upcoming exams:", error);
+      return ctx.internalServerError("Something went wrong");
+    }
+  },
 };
